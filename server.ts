@@ -3,6 +3,9 @@ import * as path from 'path';
 
 const app = express();
 
+app.use(express.static('dist'));
+app.use(express.static('node_modules'));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
