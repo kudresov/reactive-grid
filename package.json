@@ -13,7 +13,7 @@
     "start:server": "node ./dist/server.js",
     "postinstall": "npm run build:server && npm run build:client"
   },
-  "author": "",
+  "author": "Vitalij Kudresov",
   "license": "ISC",
   "dependencies": {
     "copy-webpack-plugin": "^4.0.1",
@@ -32,6 +32,7 @@
     "nodemon": "^1.11.0",
     "source-map-loader": "^0.2.1",
     "ts-node": "^3.3.0",
+    "tsc": "^1.20150623.0",
     "typescript": "^2.4.2",
     "webpack": "^3.5.4",
     "webpack-bundle-analyzer": "^2.9.0",
