@@ -2,6 +2,7 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
@@ -32,7 +33,8 @@ module.exports = {
       exclude: [/\.min\.js$/gi] // skip pre-minified libs
     }),
     new BundleAnalyzerPlugin({ analyzerMode: 'none', openAnalyzer: false }),
-    new CopyWebpackPlugin([{ from: './index.html', to: './index.html' }])
+    // new CopyWebpackPlugin([{ from: './index.html', to: './index.html' }])
+    new HtmlWebpackPlugin({ template: 'index.ejs' })
   ],
 
   // Enable sourcemaps for debugging webpack's output.
