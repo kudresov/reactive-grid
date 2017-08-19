@@ -4,8 +4,8 @@ import * as morgan from 'morgan';
 import * as netjet from 'netjet';
 
 const app = express();
-app.use(netjet);
-app.use(morgan);
+app.use(netjet());
+// app.use(morgan);
 
 const isProd = process.env.NODE_ENV === 'production';
 const clientPath = isProd ? path.join(__dirname, 'public') : __dirname;
