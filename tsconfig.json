@@ -3,10 +3,10 @@
     "outDir": "./dist/",
     "module": "es2015",
     "target": "es5",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node"
   },
-  "include": ["server.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
