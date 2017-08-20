@@ -33,7 +33,7 @@ module.exports = {
       exclude: [/\.min\.js$/gi] // skip pre-minified libs
     }),
     new BundleAnalyzerPlugin({ analyzerMode: 'none', openAnalyzer: false }),
-    // new CopyWebpackPlugin([{ from: './index.html', to: './index.html' }])
+    new CopyWebpackPlugin([{ from: './favicon.ico', to: './favicon.ico' }]),
     new HtmlWebpackPlugin({ template: 'index.ejs' })
   ],
 
