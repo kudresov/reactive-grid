@@ -5,13 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts",
-    "start:client": "webpack -w",
-    "start": "node ./dist/server.js",
-    "build:client": "webpack --progress --profile --colors",
-    "build:server": "tsc --module commonjs",
+    "build:client": "webpack",
+    "build:server": "tsc",
+    "start:server-watch": "nodemon --exec yarn run build:server",
     "start:server": "node ./dist/server.js",
-    "postinstall": "npm run build:server && npm run build:client"
+    "start": "yarn run build:client -- -w & yarn run start:server-watch",
+    "postinstall": "yarn run build:server && yarn run build:client"
   },
   "author": "Vitalij Kudresov",
   "license": "ISC",
@@ -32,6 +31,7 @@
     "nodemon": "^1.11.0",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
+    "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
     "source-map-loader": "^0.2.1",
     "spdy": "^3.4.7",
