@@ -9,7 +9,8 @@ module.exports = {
   entry: './src/client/index.tsx',
   output: {
     filename: '[name].[hash].js',
-    path: __dirname + '/dist/public'
+    path: __dirname + '/dist/public',
+    publicPath: '/'
   },
 
   plugins: [
@@ -34,7 +35,10 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({ analyzerMode: 'none', openAnalyzer: false }),
     new CopyWebpackPlugin([{ from: './favicon.ico', to: './favicon.ico' }]),
-    new HtmlWebpackPlugin({ template: 'index.ejs' })
+    new HtmlWebpackPlugin({
+      template: 'index.ejs',
+      filename: 'views/index.hbs'
+    })
   ],
 
   // Enable sourcemaps for debugging webpack's output.
@@ -56,7 +60,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
+        exclude: [/node_modules/, 'server.ts']
       },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
