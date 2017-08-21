@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
@@ -39,6 +40,9 @@ module.exports = {
       template: 'index.ejs',
       filename: 'views/index.hbs'
     })
+    // new ScriptExtHtmlWebpackPlugin({
+    //   defaultAttribute: 'defer'
+    // })
   ],
 
   // Enable sourcemaps for debugging webpack's output.
