@@ -1,5 +1,5 @@
 import * as React from 'react';
 
-const Home: React.SFC = () => <h1>Home</h1>;
+const Blog: React.SFC = () => <h1>Blog</h1>;
 
-export default Home;
+export default Blog;

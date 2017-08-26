@@ -1,5 +1,5 @@
 import * as React from 'react';
 
-const Contacts: React.SFC = () => <h1>Contacts</h1>;
+const Projects: React.SFC = () => <h1>Projects</h1>;
 
-export default Contacts;
+export default Projects;

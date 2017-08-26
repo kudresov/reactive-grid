@@ -1,0 +1,20 @@
+.link {
+  background: rgb(163, 0, 0);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+.a {
+  text-decoration: none;
+  color: #6a6a6a;
+  padding: 0.5rem;
+}

@@ -4,6 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
@@ -39,18 +40,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.ejs',
       filename: 'views/index.hbs'
-    })
-    // new ScriptExtHtmlWebpackPlugin({
-    //   defaultAttribute: 'defer'
-    // })
+    }),
+    new ExtractTextPlugin('styles.css')
   ],
 
   // Enable sourcemaps for debugging webpack's output.
-  devtool: 'source-map',
-
+  // devtool: 'source-map',
+  devtool: 'eval',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.json', '.css'],
     modules: ['node_modules'],
     alias: {
       react: 'preact-compat',
@@ -65,6 +64,16 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
         exclude: [/node_modules/, 'server.ts']
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            localIdentName: '[path][name]__[local]--[hash:base64:5]'
+          }
+        })
       },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
