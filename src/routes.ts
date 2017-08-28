@@ -2,5 +2,6 @@ export default {
   home: '/',
   blog: '/blog',
   about: '/about',
-  projects: '/projects'
+  projects: '/projects',
+  github: '/github'
 };

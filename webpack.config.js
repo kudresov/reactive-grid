@@ -14,7 +14,6 @@ module.exports = {
     path: __dirname + '/dist/public',
     publicPath: '/'
   },
-
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
