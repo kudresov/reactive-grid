@@ -1,3 +1,5 @@
 {
-  "ignore": ["node_modules/*", "dist/*", "src/client/*"]
+  "watch": ["src/server", "src/shared", "dist/server-renderer.js"],
+  "ext": "ts",
+  "exec": "ts-node ./src/server/index.ts"
 }
