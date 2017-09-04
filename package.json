@@ -30,7 +30,6 @@
     "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-plugin-relay": "^1.2.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.5",
     "express": "^4.15.4",
@@ -48,11 +47,9 @@
     "preact-compat": "^3.17.0",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
+    "react-apollo": "^1.4.15",
     "react-dom": "^15.6.1",
-    "react-relay": "^1.2.0",
     "react-router-dom": "^4.1.2",
-    "relay-compiler": "^1.2.0",
-    "relay-runtime": "^1.2.0",
     "script-ext-html-webpack-plugin": "^1.8.5",
     "source-map-loader": "^0.2.1",
     "spdy": "^3.4.7",
@@ -64,7 +61,8 @@
     "webpack": "^3.5.4",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.7.1",
+    "webpack-node-externals": "^1.6.0"
   },
   "devDependencies": {}
 }

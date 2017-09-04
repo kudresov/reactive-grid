@@ -6,7 +6,8 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "jsx": "react",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "lib": ["es6", "dom", "esnext"]
   },
   "exclude": ["node_modules", "dist", "src/client"]
 }

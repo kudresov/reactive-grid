@@ -7,16 +7,47 @@ import Header from './components/header';
 import GitHub from './components/github';
 import routes from '../shared/routes';
 
-const App = () =>
+import {
+  ApolloClient,
+  gql,
+  ApolloProvider,
+  createNetworkInterface
+} from 'react-apollo';
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.github.com/graphql'
+});
+
+const client = new ApolloClient({
+  networkInterface
+});
+
+networkInterface.use([
+  {
+    applyMiddleware(req, next) {
+      if (!req.options.headers) {
+        req.options.headers = {}; // Create the header object if needed.
+      }
+      // get the authentication token from local storage if it exists
+      const token = '1e37b0e75fea9218be6fbff4cf46db989065062f';
+      req.options.headers.authorization = token ? `Bearer ${token}` : null;
+      next();
+    }
+  }
+]);
+
+const App = () => (
   <Switch>
-    <div>
-      <Header />
-      <hr />
-      <Route path={routes.blog} component={Blog} />
-      <Route path={routes.about} component={About} />
-      <Route path={routes.projects} component={Projects} />
-      <Route path={routes.github} component={GitHub as any} />
-    </div>
-  </Switch>;
+    <ApolloProvider client={client}>
+      <div>
+        <Header />
+        <hr />
+        <Route path={routes.blog} component={Blog} />
+        <Route path={routes.about} component={About} />
+        <Route path={routes.projects} component={Projects} />
+        <Route path={routes.github} component={GitHub as any} />
+      </div>
+    </ApolloProvider>
+  </Switch>
+);
 
 export default App;

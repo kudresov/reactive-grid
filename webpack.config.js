@@ -6,6 +6,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = [
   {
@@ -62,7 +63,7 @@ module.exports = [
 
     // Enable sourcemaps for debugging webpack's output.
     // devtool: 'source-map',
-    // devtool: 'eval',
+    devtool: 'eval',
     resolve: {
       // Add '.ts' and '.tsx' as resolvable extensions.
       extensions: ['.ts', '.tsx', '.js', '.json', '.css'],
@@ -99,6 +100,8 @@ module.exports = [
   },
   {
     entry: './src/client/server-renderer.tsx',
+    externals: [nodeExternals()],
+    devtool: 'eval',
     output: {
       filename: 'server-renderer.js',
       path: __dirname + '/dist',
