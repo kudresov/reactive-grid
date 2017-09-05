@@ -14,7 +14,7 @@
     "start:server-prod": "node ./dist/server.js",
     "start": "yarn run start:client & yarn run start:server",
     "postinstall": "yarn run build:server && yarn run build:client",
-    "get-schema": "ts-node scripts/getSchema.ts",
+    "get-schema": "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions tsx"
   },
   "author": "Vitalij Kudresov",
@@ -27,6 +27,7 @@
     "@types/react-dom": "^15.5.3",
     "@types/react-router-dom": "^4.0.7",
     "@types/spdy": "^3.4.2",
+    "apollo-codegen": "^0.16.5",
     "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

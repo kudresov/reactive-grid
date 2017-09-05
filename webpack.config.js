@@ -32,11 +32,11 @@ module.exports = [
     //   }
     // },
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      }),
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //     NODE_ENV: JSON.stringify('production')
+      //   }
+      // }),
       new webpack.optimize.CommonsChunkPlugin({ name: 'commons' }),
       // new webpack.optimize.UglifyJsPlugin({
       //   mangle: true,
@@ -119,11 +119,11 @@ module.exports = [
     },
     target: 'node',
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      }),
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //     NODE_ENV: JSON.stringify('production')
+      //   }
+      // }),
       new ExtractTextPlugin('styles.css')
     ],
 

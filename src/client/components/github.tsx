@@ -1,34 +1,44 @@
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
+import { GetLastReposQuery, GetLastReposQueryVariables } from '../../../schema';
 
-const GitHub: React.SFC = result => {
-  if ((result as any).data.loading) {
-    return <h1>loading..</h1>;
-  }
-  return (
-    <div>
-      <h1>GitHub</h1>
-      <h2>Data</h2>
-      <ul>
-        {(result as any).data.viewer.repositories.nodes.map(n => (
-          <li>{n.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-const query = graphql(gql`
-  {
+const REPO_QUERY = gql`
+  query GetLastRepos($count: Int) {
     viewer {
       name
-      repositories(last: 3) {
+      repositories(last: $count) {
         nodes {
           name
         }
       }
     }
   }
-`)(GitHub);
+`;
 
-export default query;
+const last5Repos = graphql<
+  GetLastReposQuery,
+  GetLastReposQueryVariables
+>(REPO_QUERY, {
+  options: () => ({
+    variables: {
+      count: 5
+    }
+  })
+});
+
+const GitHub = last5Repos(({ data: { loading, viewer, error } }) => {
+  if (loading) {
+    return <h1>loading..</h1>;
+  }
+  return (
+    <div>
+      <h1>GitHub</h1>
+      <h2>Data!</h2>
+      <ul>{viewer.repositories.nodes.map(n => <li>{n.name}</li>)}</ul>
+    </div>
+  );
+});
+
+const query = graphql<{}, any>(REPO_QUERY)(GitHub);
+
+export default GitHub;
