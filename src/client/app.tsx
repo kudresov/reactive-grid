@@ -4,7 +4,7 @@ import Blog from './components/home';
 import About from './components/about';
 import Projects from './components/contacts';
 import Header from './components/header';
-import GitHub from './components/github';
+import GitHubPage from './components/github-page';
 import routes from '../shared/routes';
 
 import {
@@ -44,7 +44,7 @@ const App = () => (
         <Route path={routes.blog} component={Blog} />
         <Route path={routes.about} component={About} />
         <Route path={routes.projects} component={Projects} />
-        <Route path={routes.github} component={GitHub as any} />
+        <Route path={routes.github} component={GitHubPage} />
       </div>
     </ApolloProvider>
   </Switch>

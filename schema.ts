@@ -1,8 +1,26 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
 
+export type StarredReposQueryVariables = {
+  reposCount?: number | null,
+};
+
+export type StarredReposQuery = {
+  // The currently authenticated user.
+  viewer:  {
+    // Repositories the user has starred.
+    starredRepositories:  {
+      // A list of nodes.
+      nodes:  Array< {
+        // The name of the repository.
+        name: string,
+      } | null > | null,
+    },
+  },
+};
+
 export type GetLastReposQueryVariables = {
-  count?: number | null,
+  reposCount?: number | null,
 };
 
 export type GetLastReposQuery = {
