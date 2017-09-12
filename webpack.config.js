@@ -2,35 +2,22 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const StatsWriterPlugin = require('webpack-stats-plugin').StatsWriterPlugin;
 
 module.exports = [
   {
+    name: 'client',
     entry: './src/client/index.tsx',
     output: {
       filename: '[name].[hash].js',
       chunkFilename: '[name].[hash].js',
-      path: __dirname + '/dist',
-      publicPath: '/'
+      path: __dirname + '/dist/public',
+      publicPath: '/public'
     },
-    // devServer: {
-    //   contentBase: path.join(__dirname, 'dist'),
-    //   compress: false,
-    //   port: 9000,
-    //   stats: 'errors-only',
-    //   proxy: {
-    //     '/': {
-    //       target: 'http://localhost:3000',
-    //       bypass: function(req, res, proxyOptions) {
-    //         return req.path.includes('.js');
-    //       }
-    //     }
-    //   }
-    // },
     plugins: [
       // new webpack.DefinePlugin({
       //   'process.env': {
@@ -38,6 +25,7 @@ module.exports = [
       //   }
       // }),
       new webpack.optimize.CommonsChunkPlugin({ name: 'commons' }),
+      new StatsWriterPlugin(),
       // new webpack.optimize.UglifyJsPlugin({
       //   mangle: true,
       //   compress: {
@@ -54,10 +42,6 @@ module.exports = [
       // }),
       new BundleAnalyzerPlugin({ analyzerMode: 'none', openAnalyzer: false }),
       new CopyWebpackPlugin([{ from: './favicon.ico', to: './favicon.ico' }]),
-      new HtmlWebpackPlugin({
-        template: 'index.ejs',
-        filename: 'views/index.hbs'
-      }),
       new ExtractTextPlugin('styles.css')
     ],
 
@@ -99,12 +83,13 @@ module.exports = [
     }
   },
   {
+    name: 'server',
     entry: './src/client/server-renderer.tsx',
     externals: [nodeExternals()],
     devtool: 'eval',
     output: {
       filename: 'server-renderer.js',
-      path: __dirname + '/dist',
+      path: __dirname + '/dist/src/server',
       publicPath: '/',
       libraryTarget: 'commonjs2'
     },

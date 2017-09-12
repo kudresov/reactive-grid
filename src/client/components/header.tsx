@@ -5,7 +5,7 @@ import Logo from './logo';
 import { CSSProperties } from 'react';
 const styles = require('./header.css');
 
-const Header: React.SFC = () =>
+const Header: React.SFC = () => (
   <nav className={styles.nav}>
     <Logo />
     <ul>
@@ -21,10 +21,11 @@ const Header: React.SFC = () =>
       </li>
       <li className={styles.li}>
         <Link className={styles.a} to="/about">
-          About us
+          About us!
         </Link>
       </li>
     </ul>
-  </nav>;
+  </nav>
+);
 
 export default Header;
