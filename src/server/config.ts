@@ -3,12 +3,12 @@ const { PORT, NODE_ENV, GITHUB_API_TOKEN } = process.env;
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const publicAssetsPath = IS_PRODUCTION
-  ? path.join(__dirname, '../../public')
+  ? path.join(__dirname, '../public')
   : path.join(__dirname, '../../dist');
 
 const SERVER_RENDERER_PATH = IS_PRODUCTION
   ? path.join(__dirname, './server-renderer')
-  : path.join(__dirname, '../../dist/src/server/server-renderer');
+  : path.join(__dirname, '../../dist/server/server-renderer');
 
 const config = {
   PORT: PORT ? parseInt(PORT) : 3000,

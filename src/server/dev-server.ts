@@ -3,15 +3,18 @@ import * as webpack from 'webpack';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotServerMiddleware from 'webpack-hot-server-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
-import * as webpackConfig from '../../webpack.config.js';
+import webpackConfig from '../webpack/webpack.config';
 import config from './config';
+import * as FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 
 const compiler = webpack(webpackConfig);
+
 const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
   serverSideRender: true
 });
+
 const webpackHotMiddlewareInstance = webpackHotMiddleware(
-  compiler.compilers.find(compiler => compiler.name === 'client')
+  (compiler as any).compilers.find(compiler => compiler.name === 'client')
 );
 
 const app = express();
