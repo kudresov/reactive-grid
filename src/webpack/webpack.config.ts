@@ -10,13 +10,13 @@ export default [
     longTermCachingChunk: true,
     sourceMap: 'eval',
     extractCss: true,
-    stats: true
+    stats: true,
   }),
   createConfig({
-    name: 'server',
+    name: 'server-renderer',
     entry: './src/client/server-renderer.tsx',
     dist: path.join(__dirname, '../../dist/server'),
     node: true,
-    sourceMap: 'eval'
-  })
+    sourceMap: 'eval',
+  }),
 ];

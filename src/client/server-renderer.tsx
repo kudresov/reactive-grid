@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StaticRouter } from 'react-router';
 import * as ReactDOMServer from 'react-dom/server';
 import App from './app';
+import { compose, filter } from 'ramda';
 
 export const render = (url: string) =>
   ReactDOMServer.renderToString(
@@ -21,20 +22,21 @@ const convertToCssTags = (css: string[]) =>
 const toArray = (item: string[] | string) =>
   Array.isArray(item) ? item : [item];
 
-const jsFilter = f => f.endsWith('.js');
-const cssFilter = f => f.endsWith('.css');
+const jsFilter = (f: string) => f.endsWith('.js');
+const cssFilter = (f: string) => f.endsWith('.css');
+const toScriptTag = compose(convertToScriptTags, filter(jsFilter), toArray);
+const toCssTag = compose(convertToCssTags, filter(cssFilter), toArray);
 
 module.exports = function serverRenderer({ clientStats, serverStats }) {
   return (req, res) => {
-    // TODO convert to compose
-    const mainFiles = toArray(clientStats.assetsByChunkName.main);
-    const commonFiles = toArray(clientStats.assetsByChunkName.commons);
-    const mainJsFiles = mainFiles.filter(jsFilter);
-    const commonJsFiles = commonFiles.filter(jsFilter);
-    const cssFiles = mainFiles.filter(cssFilter);
-    const mainJsScripts = convertToScriptTags(mainJsFiles);
-    const commonJsScripts = convertToScriptTags(commonJsFiles);
-    const cssTags = convertToCssTags(cssFiles);
+    const bootstrapScript = toScriptTag(
+      clientStats.assetsByChunkName.bootstrap
+    );
+    const libScripts = toScriptTag(
+      clientStats.assetsByChunkName['long-term-caching']
+    );
+    const jsScripts = toScriptTag(clientStats.assetsByChunkName.client);
+    const cssTags = toCssTag(clientStats.assetsByChunkName.client);
 
     res.send(`
       <!DOCTYPE html>
@@ -53,8 +55,9 @@ module.exports = function serverRenderer({ clientStats, serverStats }) {
         <div id="app">
           ${render(req.url)}
         </div>
-        ${commonJsScripts}
-        ${mainJsScripts}
+        ${bootstrapScript}
+        ${libScripts}
+        ${jsScripts}
       </body>
       </html>
       `);

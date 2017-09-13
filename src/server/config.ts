@@ -17,7 +17,7 @@ const config = {
   GITHUB_API_TOKEN,
   SERVER_RENDERER_PATH,
   CLIENT_PATH: publicAssetsPath,
-  CLIENT_STATS_PATH: path.join(publicAssetsPath, 'stats.json')
+  CLIENT_STATS_PATH: path.join(__dirname, 'stats.json'),
 };
 
 export default config;

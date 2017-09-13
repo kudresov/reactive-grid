@@ -4,20 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild:client": "rimraf dist/public",
-    "prebuild:server": "rimraf dist/src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:client": "webpack --config src/webpack/webpack.config.ts",
     "build:server": "tsc",
+    "build": "npm run build:client && npm run build:server",
     "start:server": "nodemon",
     "start:client": "webpack -w",
     "start:server-prod": "node ./dist/server.js",
     "start": "yarn run start:client & yarn run start:server",
     "postinstall": "yarn run build:server && yarn run build:client",
-    "get-schema":
-      "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
-    "generate-types":
-      "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts"
+    "get-schema": "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
+    "generate-types": "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts"
   },
   "author": "Vitalij Kudresov",
   "license": "ISC",
