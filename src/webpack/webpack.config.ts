@@ -8,7 +8,7 @@ export default [
     codeSplitting: true,
     bootstrapChunk: true,
     longTermCachingChunk: true,
-    sourceMap: 'eval',
+    sourceMap: 'inline-source-map',
     extractCss: true,
     stats: true,
   }),
@@ -17,6 +17,6 @@ export default [
     entry: './src/client/server-renderer.tsx',
     dist: path.join(__dirname, '../../dist/server'),
     node: true,
-    sourceMap: 'eval',
+    sourceMap: 'inline-source-map',
   }),
 ];

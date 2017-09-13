@@ -46,7 +46,11 @@ const getEntry = (options: Options): webpack.Entry => {
   };
 
   if (options.longTermCachingChunk) {
-    entry['long-term-caching'] = ['react', 'react-dom', 'react-router'];
+    entry['long-term-caching'] = [
+      'preact-compat',
+      'react-router',
+      'react-router-dom',
+    ];
   }
 
   return entry;
@@ -155,7 +159,7 @@ const getRules = (options: Options): webpack.Rule[] => {
   if (options.node) {
     cssLoader = [
       {
-        loader: 'css-loader',
+        loader: 'css-loader/locals',
         options: cssLoaderOptions,
       },
     ];
@@ -217,7 +221,7 @@ const createConfig = (options: Options): webpack.Configuration => {
       rules: getRules(options),
     },
     plugins: getPlugins(options),
-    externals: [nodeExternals()],
+    externals: options.node ? [nodeExternals()] : {},
   };
 };
 
