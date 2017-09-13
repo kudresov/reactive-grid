@@ -9,7 +9,7 @@ import { StatsWriterPlugin } from 'webpack-stats-plugin';
 
 const SRC_DIR = path.join(__dirname, '../');
 const DIST_DIR = path.join(__dirname, '../../dist/public');
-const PUBLIC_PATH = '/public/';
+const PUBLIC_PATH = '/';
 
 export interface Options {
   readonly name: string;
@@ -37,19 +37,19 @@ const defaultOptions: Partial<Options> = {
   extractCss: false,
   bundleAnalyzer: false,
   stats: false,
-  dist: DIST_DIR,
+  dist: DIST_DIR
 };
 
 const getEntry = (options: Options): webpack.Entry => {
   const entry: webpack.Entry = {
-    [options.name]: options.entry,
+    [options.name]: options.entry
   };
 
   if (options.longTermCachingChunk) {
     entry['long-term-caching'] = [
       'preact-compat',
       'react-router',
-      'react-router-dom',
+      'react-router-dom'
     ];
   }
 
@@ -63,7 +63,7 @@ const getOutput = (options: Options): webpack.Output => {
     path: options.dist,
     filename,
     chunkFilename: filename,
-    publicPath: PUBLIC_PATH,
+    publicPath: options.node ? undefined : PUBLIC_PATH
   };
 
   if (options.node) {
@@ -85,20 +85,20 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
     new ExtractTextPlugin({
       filename: options.revision ? '[name].[contenthash].css' : '[name].css',
       allChunks: true,
-      disable: !options.extractCss,
-    }),
+      disable: !options.extractCss
+    })
   ];
 
   if (options.optimize) {
     plugins.push(
       new webpack.DefinePlugin({
         // Put React in prod mode.
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': JSON.stringify('production')
       })
     );
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
-        sourceMap: !!options.sourceMap,
+        sourceMap: !!options.sourceMap
       })
     );
     plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
@@ -107,7 +107,7 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
   if (!options.codeSplitting) {
     plugins.push(
       new webpack.optimize.LimitChunkCountPlugin({
-        maxChunks: 1,
+        maxChunks: 1
       })
     );
   }
@@ -116,7 +116,7 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
     plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
         name: 'long-term-caching',
-        minChunks: Infinity,
+        minChunks: Infinity
       })
     );
   }
@@ -125,7 +125,7 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
     plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
         name: 'bootstrap',
-        minChunks: Infinity,
+        minChunks: Infinity
       })
     );
   }
@@ -139,7 +139,7 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         reportFilename: 'stats.html',
-        openAnalyzer: false,
+        openAnalyzer: false
       })
     );
   }
@@ -153,15 +153,15 @@ const getRules = (options: Options): webpack.Rule[] => {
     sourceMap: !!options.sourceMap,
     modules: true,
     minimize: options.optimize,
-    localIdentName: '[path][name]__[local]--[hash:base64:5]',
+    localIdentName: '[path][name]__[local]--[hash:base64:5]'
   };
 
   if (options.node) {
     cssLoader = [
       {
         loader: 'css-loader/locals',
-        options: cssLoaderOptions,
-      },
+        options: cssLoaderOptions
+      }
     ];
   } else {
     cssLoader = ExtractTextPlugin.extract({
@@ -169,9 +169,9 @@ const getRules = (options: Options): webpack.Rule[] => {
       use: [
         {
           loader: 'css-loader',
-          options: cssLoaderOptions,
-        },
-      ],
+          options: cssLoaderOptions
+        }
+      ]
     });
   }
 
@@ -179,28 +179,28 @@ const getRules = (options: Options): webpack.Rule[] => {
     {
       test: /\.tsx?$/,
       include: SRC_DIR,
-      loader: 'awesome-typescript-loader',
+      loader: 'awesome-typescript-loader'
     },
     {
       test: /\.json$/,
       include: SRC_DIR,
-      loader: 'json-loader',
+      loader: 'json-loader'
     },
     {
       test: /\.css$/,
-      loader: cssLoader,
+      loader: cssLoader
     },
     {
       test: /\.(png|jpg|woff|svg|eot|ttf|gif)$/,
-      loader: 'file-loader',
-    },
+      loader: 'file-loader'
+    }
   ];
 };
 
 const createConfig = (options: Options): webpack.Configuration => {
   options = {
     ...defaultOptions,
-    ...options,
+    ...options
   };
 
   return {
@@ -214,14 +214,14 @@ const createConfig = (options: Options): webpack.Configuration => {
       enforceExtension: false,
       alias: {
         react: 'preact-compat',
-        'react-dom': 'preact-compat',
-      },
+        'react-dom': 'preact-compat'
+      }
     },
     module: {
-      rules: getRules(options),
+      rules: getRules(options)
     },
     plugins: getPlugins(options),
-    externals: options.node ? [nodeExternals()] : {},
+    externals: options.node ? [nodeExternals()] : {}
   };
 };
 

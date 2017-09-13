@@ -21,7 +21,7 @@ const Header: React.SFC = () => (
       </li>
       <li className={styles.li}>
         <Link className={styles.a} to="/about">
-          About us!
+          About us
         </Link>
       </li>
     </ul>

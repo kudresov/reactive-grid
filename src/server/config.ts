@@ -15,9 +15,9 @@ const config = {
   STATIC_RESOURCE_CACHE_PERIOD: '1y',
   IS_PRODUCTION,
   GITHUB_API_TOKEN,
-  SERVER_RENDERER_PATH: path.join(SERVER_PATH, 'server-renderer'),
+  SERVER_RENDERER_PATH: path.join(SERVER_PATH, 'server'),
   CLIENT_PATH: publicAssetsPath,
-  CLIENT_STATS_PATH: path.join(SERVER_PATH, 'stats.json'),
+  CLIENT_STATS_PATH: path.join(SERVER_PATH, 'stats.json')
 };
 
 export default config;

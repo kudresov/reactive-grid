@@ -1,5 +1,5 @@
 {
-  "watch": ["src/server", "src/shared", "dist/server-renderer.js"],
+  "watch": ["src/server", "src/shared", "dist/server.js"],
   "ext": "ts",
   "exec": "ts-node ./src/server/index.ts"
 }
