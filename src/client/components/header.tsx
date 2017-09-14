@@ -11,7 +11,7 @@ const Header: React.SFC = () => (
     <ul>
       <li className={styles.li}>
         <Link className={styles.a} to="/projects">
-          Projects
+          Projects!
         </Link>
       </li>
       <li className={styles.li}>

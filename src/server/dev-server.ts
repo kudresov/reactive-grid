@@ -11,8 +11,8 @@ const compiler = webpack(webpackConfig);
 (compiler as any).apply(new FriendlyErrorsWebpackPlugin());
 
 const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-  serverSideRender: true
-  // publicPath: ''
+  serverSideRender: true,
+  noInfo: true
 });
 
 const webpackHotMiddlewareInstance = webpackHotMiddleware(

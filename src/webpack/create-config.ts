@@ -10,6 +10,7 @@ import { StatsWriterPlugin } from 'webpack-stats-plugin';
 const SRC_DIR = path.join(__dirname, '../');
 const DIST_DIR = path.join(__dirname, '../../dist/public');
 const PUBLIC_PATH = '/';
+var hotMiddlewareScript = 'webpack-hot-middleware/client';
 
 export interface Options {
   readonly name: string;
@@ -42,7 +43,9 @@ const defaultOptions: Partial<Options> = {
 
 const getEntry = (options: Options): webpack.Entry => {
   const entry: webpack.Entry = {
-    [options.name]: options.entry
+    [options.name]: options.node
+      ? options.entry
+      : [options.entry, hotMiddlewareScript]
   };
 
   if (options.longTermCachingChunk) {
@@ -86,7 +89,8 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
       filename: options.revision ? '[name].[contenthash].css' : '[name].css',
       allChunks: true,
       disable: !options.extractCss
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ];
 
   if (options.optimize) {
@@ -202,6 +206,8 @@ const createConfig = (options: Options): webpack.Configuration => {
     ...defaultOptions,
     ...options
   };
+
+  console.log(getEntry(options));
 
   return {
     name: options.name,
