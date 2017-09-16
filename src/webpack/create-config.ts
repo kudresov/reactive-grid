@@ -10,7 +10,7 @@ import { StatsWriterPlugin } from 'webpack-stats-plugin';
 const SRC_DIR = path.join(__dirname, '../');
 const DIST_DIR = path.join(__dirname, '../../dist/public');
 const PUBLIC_PATH = '/';
-var hotMiddlewareScript = 'webpack-hot-middleware/client';
+// var hotMiddlewareScript = 'webpack-hot-middleware/client';
 
 export interface Options {
   readonly name: string;
@@ -42,17 +42,22 @@ const defaultOptions: Partial<Options> = {
 };
 
 const getEntry = (options: Options): webpack.Entry => {
+  // const entry: webpack.Entry = {
+  //   [options.name]: options.node
+  //     ? options.entry
+  //     : [options.entry, hotMiddlewareScript]
+  // };
+
   const entry: webpack.Entry = {
-    [options.name]: options.node
-      ? options.entry
-      : [options.entry, hotMiddlewareScript]
+    [options.name]: options.entry
   };
 
   if (options.longTermCachingChunk) {
     entry['long-term-caching'] = [
       'preact-compat',
       'react-router',
-      'react-router-dom'
+      'react-router-dom',
+      'react-apollo'
     ];
   }
 
@@ -89,8 +94,8 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
       filename: options.revision ? '[name].[contenthash].css' : '[name].css',
       allChunks: true,
       disable: !options.extractCss
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
+    // new webpack.HotModuleReplacementPlugin()
   ];
 
   if (options.optimize) {
@@ -183,7 +188,12 @@ const getRules = (options: Options): webpack.Rule[] => {
     {
       test: /\.tsx?$/,
       include: SRC_DIR,
-      loader: 'awesome-typescript-loader'
+      use: {
+        loader: 'awesome-typescript-loader',
+        options: {
+          configFileName: 'tsconfig-client.json'
+        }
+      }
     },
     {
       test: /\.json$/,
@@ -206,8 +216,6 @@ const createConfig = (options: Options): webpack.Configuration => {
     ...defaultOptions,
     ...options
   };
-
-  console.log(getEntry(options));
 
   return {
     name: options.name,

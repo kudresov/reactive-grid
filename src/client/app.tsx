@@ -50,4 +50,5 @@ const App = () => (
   </Switch>
 );
 
+export const foo = n => n + 'zap';
 export default App;

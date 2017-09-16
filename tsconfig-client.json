@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "module": "commonjs",
-    "target": "es6",
+    "module": "es2015",
+    "target": "es5",
     "noImplicitAny": false,
     "sourceMap": true,
     "allowJs": true,
@@ -10,5 +10,5 @@
     "moduleResolution": "node",
     "lib": ["es6", "dom", "esnext"]
   },
-  "include": ["src/server"]
+  "include": ["./server"]
 }
