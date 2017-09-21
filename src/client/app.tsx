@@ -4,51 +4,26 @@ import Blog from './components/home';
 import About from './components/about';
 import Projects from './components/contacts';
 import Header from './components/header';
-import GitHubPage from './components/github-page';
 import routes from '../shared/routes';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import GithubLoadable from './components/github-container';
 
-import {
-  ApolloClient,
-  gql,
-  ApolloProvider,
-  createNetworkInterface
-} from 'react-apollo';
-const networkInterface = createNetworkInterface({
-  uri: 'https://api.github.com/graphql'
-});
-
-const client = new ApolloClient({
-  networkInterface
-});
-
-networkInterface.use([
-  {
-    applyMiddleware(req, next) {
-      if (!req.options.headers) {
-        req.options.headers = {}; // Create the header object if needed.
-      }
-      // get the authentication token from local storage if it exists
-      const token = '';
-      req.options.headers.authorization = token ? `Bearer ${token}` : null;
-      next();
-    }
-  }
-]);
+const store = createStore(s => s);
 
 const App = () => (
-  <Switch>
-    <ApolloProvider client={client}>
+  <Provider store={store}>
+    <Switch>
       <div>
         <Header />
         <hr />
         <Route path={routes.blog} component={Blog} />
         <Route path={routes.about} component={About} />
         <Route path={routes.projects} component={Projects} />
-        <Route path={routes.github} component={GitHubPage} />
+        <Route path={routes.github} component={GithubLoadable} />
       </div>
-    </ApolloProvider>
-  </Switch>
+    </Switch>
+  </Provider>
 );
 
-export const foo = n => n + 'zap';
 export default App;

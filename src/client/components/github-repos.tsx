@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { GetLastReposQuery, GetLastReposQueryVariables } from '../../../schema';
-import GitHubStars from './github-stars';
 
 const REPO_QUERY = gql`
   query GetLastRepos($reposCount: Int) {

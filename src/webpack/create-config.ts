@@ -53,12 +53,7 @@ const getEntry = (options: Options): webpack.Entry => {
   };
 
   if (options.longTermCachingChunk) {
-    entry['long-term-caching'] = [
-      'preact-compat',
-      'react-router',
-      'react-router-dom',
-      'react-apollo'
-    ];
+    entry['long-term-caching'] = ['preact-compat', 'react-router'];
   }
 
   return entry;
@@ -165,6 +160,10 @@ const getRules = (options: Options): webpack.Rule[] => {
     localIdentName: '[path][name]__[local]--[hash:base64:5]'
   };
 
+  let tsLoaderOptions = {
+    configFileName: options.node ? 'tsconfig.json' : 'tsconfig-client.json'
+  };
+
   if (options.node) {
     cssLoader = [
       {
@@ -190,9 +189,7 @@ const getRules = (options: Options): webpack.Rule[] => {
       include: SRC_DIR,
       use: {
         loader: 'awesome-typescript-loader',
-        options: {
-          configFileName: 'tsconfig-client.json'
-        }
+        options: tsLoaderOptions
       }
     },
     {
