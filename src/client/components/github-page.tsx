@@ -1,6 +1,9 @@
 import * as React from 'react';
 import GitHubStars from './github-stars';
 import GitHubRepos from './github-repos';
+import { addMiddleware } from '../redux-dynamic-middlewares';
+import { injectAsyncReducer } from '../store';
+import { store } from '../app';
 
 import {
   ApolloClient,
@@ -23,6 +26,9 @@ networkInterface.use([
     }
   }
 ]);
+
+addMiddleware(client.middleware());
+injectAsyncReducer(store, 'zap', client.reducer());
 
 const GitHubPage: React.SFC = () => (
   <ApolloProvider client={client}>

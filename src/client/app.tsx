@@ -6,10 +6,12 @@ import Projects from './components/contacts';
 import Header from './components/header';
 import routes from '../shared/routes';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import GithubLoadable from './components/github-container';
+import { ApolloClient, ApolloProvider } from 'react-apollo';
+import dynamicMiddlewares from './redux-dynamic-middlewares';
 
-const store = createStore(s => s);
+export const store = createStore(applyMiddleware(dynamicMiddlewares));
 
 const App = () => (
   <Provider store={store}>

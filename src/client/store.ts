@@ -1,0 +1,13 @@
+import { createStore } from 'redux';
+import createReducer from './reducers';
+
+export default function configureStore(initialState) {
+  const store = createStore(createReducer(), initialState);
+  (store as any).asyncReducers = {};
+  return store;
+}
+
+export function injectAsyncReducer(store, name, asyncReducer) {
+  store.asyncReducers[name] = asyncReducer;
+  store.replaceReducer(createReducer(store.asyncReducers));
+}
