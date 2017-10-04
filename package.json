@@ -66,9 +66,7 @@
     "webpack-hot-middleware": "^2.19.1",
     "webpack-hot-server-middleware": "^0.1.0",
     "webpack-node-externals": "^1.6.0",
-    "webpack-stats-plugin": "^0.1.5"
-  },
-  "devDependencies": {
+    "webpack-stats-plugin": "^0.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1"
   }
 }
