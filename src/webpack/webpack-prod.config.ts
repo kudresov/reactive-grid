@@ -7,7 +7,7 @@ export default [
     entry: './src/client/server-renderer.tsx',
     dist: path.join(__dirname, '../../dist/server'),
     node: true,
-    sourceMap: 'inline-source-map'
+    sourceMap: 'inline-source-map',
   }),
   createConfig({
     name: 'client',
@@ -19,6 +19,7 @@ export default [
     extractCss: true,
     stats: true,
     optimize: true,
-    bundleAnalyzer: true
-  })
+    bundleAnalyzer: true,
+    revision: true,
+  }),
 ];
