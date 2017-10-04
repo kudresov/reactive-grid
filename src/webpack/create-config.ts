@@ -6,6 +6,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import * as StatsPlugin from 'stats-webpack-plugin';
 import * as nodeExternals from 'webpack-node-externals';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const SRC_DIR = path.join(__dirname, '../');
 const DIST_DIR = path.join(__dirname, '../../dist/public');
@@ -89,7 +90,8 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
       filename: options.revision ? '[name].[contenthash].css' : '[name].css',
       allChunks: true,
       disable: !options.extractCss
-    })
+    }),
+    new CopyWebpackPlugin([{ from: 'favicon.ico' }])
     // new webpack.HotModuleReplacementPlugin()
   ];
 
