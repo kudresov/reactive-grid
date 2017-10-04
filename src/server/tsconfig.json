@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "../../dist",
     "module": "commonjs",
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": true,
-    "jsx": "react",
     "moduleResolution": "node",
     "lib": ["es6", "dom", "esnext"]
   },
-  "include": ["./src"]
+  "include": ["../shared", "./"],
+  "exclude": ["./dev-server.ts"]
 }

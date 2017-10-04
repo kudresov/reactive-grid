@@ -4,17 +4,28 @@ import Blog from './components/home';
 import About from './components/about';
 import Projects from './components/contacts';
 import Header from './components/header';
-import routes from '../routes';
+import routes from '../shared/routes';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import GithubLoadable from './components/github-container';
+import { ApolloClient, ApolloProvider } from 'react-apollo';
+import dynamicMiddlewares from './redux-dynamic-middlewares';
 
-const App = () =>
-  <Switch>
-    <div>
-      <Header />
-      <hr />
-      <Route path={routes.blog} component={Blog} />
-      <Route path={routes.about} component={About} />
-      <Route path={routes.projects} component={Projects} />
-    </div>
-  </Switch>;
+export const store = createStore(applyMiddleware(dynamicMiddlewares));
+
+const App = () => (
+  <Provider store={store}>
+    <Switch>
+      <div>
+        <Header />
+        <hr />
+        <Route path={routes.blog} component={Blog} />
+        <Route path={routes.about} component={About} />
+        <Route path={routes.projects} component={Projects} />
+        <Route path={routes.github} component={GithubLoadable} />
+      </div>
+    </Switch>
+  </Provider>
+);
 
 export default App;
