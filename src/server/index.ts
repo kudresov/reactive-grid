@@ -28,7 +28,7 @@ const app = express();
 
 app.use(morgan('combined'));
 
-app.use(netjet());
+app.use(netjet({ images: false }));
 app.use(staticResource);
 app.use(githubApi);
 app.use(serverRenderer({ clientStats }));
