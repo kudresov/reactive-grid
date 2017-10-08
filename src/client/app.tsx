@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Blog from './components/home';
+import Blog from './components/blog';
 import About from './components/about';
 import Projects from './components/contacts';
 import Header from './components/header';
@@ -11,6 +11,7 @@ import GithubLoadable from './components/github-container';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
 import dynamicMiddlewares from './redux-dynamic-middlewares';
 import createReducer from './reducers';
+import Home from './components/home';
 
 const store = createStore(createReducer(), applyMiddleware(dynamicMiddlewares));
 (store as any).asyncReducers = {};
@@ -26,6 +27,7 @@ const App = () => (
       <div>
         <Header />
         <hr />
+        <Route exact path={routes.home} component={Home} />
         <Route path={routes.blog} component={Blog} />
         <Route path={routes.about} component={About} />
         <Route path={routes.projects} component={Projects} />

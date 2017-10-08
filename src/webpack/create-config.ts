@@ -90,10 +90,18 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
       filename: options.revision ? '[name].[contenthash].css' : '[name].css',
       allChunks: true,
       disable: !options.extractCss
-    }),
-    new CopyWebpackPlugin([{ from: 'favicon.ico' }])
+    })
     // new webpack.HotModuleReplacementPlugin()
   ];
+
+  if (!options.node) {
+    plugins.push(
+      new CopyWebpackPlugin([
+        { from: 'favicon.ico' },
+        { from: 'src/client/assets', to: 'assets' }
+      ])
+    );
+  }
 
   if (options.optimize) {
     plugins.push(

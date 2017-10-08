@@ -9,7 +9,7 @@
     "build:server": "tsc -p src/server",
     "build": "npm run build:client && npm run build:server",
     "start:server": "nodemon",
-    "start:client": "ts-node src/server/dev-server.ts",
+    "start:client": "ts-node --inspect src/server/dev-server.ts",
     "start:server-prod": "node dist/server/index.js",
     "start": "yarn run start:client & yarn run start:server",
     "postinstall": "yarn run build:server && yarn run build:client",

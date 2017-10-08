@@ -1,7 +1,8 @@
 .logo {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: rgb(146, 146, 146);
   font-weight: 300;
+  text-decoration: none;
 }
 
 .reactive {
