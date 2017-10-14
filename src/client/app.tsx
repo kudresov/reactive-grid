@@ -11,7 +11,8 @@ import GithubLoadable from './components/github-container';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
 import dynamicMiddlewares from './redux-dynamic-middlewares';
 import createReducer from './reducers';
-import Home from './components/home';
+import Home from './components/home/home';
+require('./reset.css');
 
 const store = createStore(createReducer(), applyMiddleware(dynamicMiddlewares));
 (store as any).asyncReducers = {};

@@ -1,0 +1,30 @@
+.title {
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+}
+
+.backendFrontendContainer {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333333;
+  color: white;
+  padding: 5rem 2rem 5rem 2rem;
+}
+
+.section {
+  max-width: 25rem;
+}
+
+/* We use compensating marging as the browser sometimes leaves few px gap when rescaling */
+.skyline {
+  margin-bottom: -10px;
+  width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.subSection {
+}

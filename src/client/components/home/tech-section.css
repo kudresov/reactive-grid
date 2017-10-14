@@ -2,8 +2,5 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-}
-
-.title {
-  text-align: center;
+  user-select: none;
 }
