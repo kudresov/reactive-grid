@@ -13,6 +13,7 @@ import dynamicMiddlewares from './redux-dynamic-middlewares';
 import createReducer from './reducers';
 import Home from './components/home/home';
 require('./reset.css');
+require('./common.css');
 
 const store = createStore(createReducer(), applyMiddleware(dynamicMiddlewares));
 (store as any).asyncReducers = {};
@@ -27,7 +28,6 @@ const App = () => (
     <Switch>
       <div>
         <Header />
-        <hr />
         <Route exact path={routes.home} component={Home} />
         <Route path={routes.blog} component={Blog} />
         <Route path={routes.about} component={About} />

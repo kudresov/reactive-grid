@@ -2,20 +2,23 @@
   text-align: center;
 }
 
+.mainTitle {
+  color: #6a6a6a;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: #6a6a6a;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
 .header {
   text-align: center;
-}
-
-.backendFrontendContainer {
+  height: 12rem;
   display: flex;
-  justify-content: space-around;
-  background-color: #333333;
-  color: white;
-  padding: 5rem 2rem 5rem 2rem;
-}
-
-.section {
-  max-width: 25rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* We use compensating marging as the browser sometimes leaves few px gap when rescaling */
@@ -26,5 +29,8 @@
   -webkit-user-drag: none;
 }
 
-.subSection {
+.frontendBackendContainer {
+  background-color: #333333;
+  color: white;
+  padding: 5rem 2rem 5rem 2rem;
 }

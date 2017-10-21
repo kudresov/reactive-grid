@@ -1,0 +1,22 @@
+.backendFrontendContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.section {
+  max-width: 25rem;
+}
+
+.subtitle {
+  line-height: 3rem;
+  font-size: 1.3rem;
+}
+
+.backendSection {
+  margin-left: 10vw;
+}
+
+.subSection {
+  line-height: 1.3rem;
+  font-weight: 200;
+}
