@@ -1,11 +1,8 @@
-.link {
-  background: rgb(163, 0, 0);
-}
-
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 2rem;
 }
 
 .li {
@@ -17,4 +14,9 @@
   text-decoration: none;
   color: #6a6a6a;
   padding: 0.5rem;
+  font-weight: 200;
+}
+
+.a:hover {
+  text-decoration: underline;
 }

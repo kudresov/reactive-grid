@@ -1,0 +1,45 @@
+.title {
+  text-align: center;
+}
+
+.mainTitle {
+  color: #6a6a6a;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: #6a6a6a;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.header {
+  text-align: center;
+  height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* We use compensating marging as the browser sometimes leaves few px gap when rescaling */
+.skyline {
+  margin-bottom: -10px;
+  width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.frontendBackendContainer {
+  background-color: #333333;
+  color: white;
+  padding: 5rem 2rem 5rem 2rem;
+}
+
+.techSection {
+  padding: 5rem 2rem 5rem 2rem;
+}
+
+.otherSection {
+  background-color: #333333;
+  height: 20rem;
+}
