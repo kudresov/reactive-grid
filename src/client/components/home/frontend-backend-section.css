@@ -7,9 +7,10 @@
   max-width: 25rem;
 }
 
-.subtitle {
+.title {
   line-height: 3rem;
   font-size: 1.3rem;
+  color: white;
 }
 
 .backendSection {

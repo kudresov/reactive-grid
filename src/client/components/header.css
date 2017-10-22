@@ -16,3 +16,7 @@
   padding: 0.5rem;
   font-weight: 200;
 }
+
+.a:hover {
+  text-decoration: underline;
+}
