@@ -12,6 +12,7 @@ import { ApolloClient, ApolloProvider } from 'react-apollo';
 import dynamicMiddlewares from './redux-dynamic-middlewares';
 import createReducer from './reducers';
 import Home from './components/home/home';
+import Footer from './components/footer';
 require('./reset.css');
 require('./common.css');
 
@@ -33,6 +34,7 @@ const App = () => (
         <Route path={routes.about} component={About} />
         <Route path={routes.projects} component={Projects} />
         <Route path={routes.github} component={GithubLoadable} />
+        <Footer />
       </div>
     </Switch>
   </Provider>

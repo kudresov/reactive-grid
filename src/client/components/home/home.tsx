@@ -13,7 +13,6 @@ const Home: React.SFC = () => (
     <img src="../../assets/london-skyline.svg" className={styles.skyline} />
     <FrontBackendSection containerStyleName={styles.frontendBackendContainer} />
     <TechSection containerStyleName={styles.techSection} />
-    <div className={styles.otherSection} />
   </div>
 );
 
