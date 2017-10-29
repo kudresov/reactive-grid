@@ -20,3 +20,7 @@
 .a:hover {
   text-decoration: underline;
 }
+
+.activeLink {
+  text-decoration: underline;
+}

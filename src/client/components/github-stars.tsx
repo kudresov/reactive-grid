@@ -22,9 +22,14 @@ interface Props {
   }[];
 }
 
-const GitHubStars: React.SFC<Props & StarredReposQueryVariables> = ({
+interface OwnProps {
+  readonly page: number;
+}
+
+const GitHubStars: React.SFC<Props & StarredReposQueryVariables & OwnProps> = ({
   loading,
-  repos
+  repos,
+  page
 }) => {
   if (loading) {
     return <h2>loading..</h2>;
@@ -34,20 +39,25 @@ const GitHubStars: React.SFC<Props & StarredReposQueryVariables> = ({
       <div className={styles.headerContainer}>
         <img className={styles.icon} src="../../assets/star.svg" />
         <h2 className={styles.header}>GitHub Stars</h2>
+        <h3>page number: {page}</h3>
       </div>
       <ul className={styles.list}>{repos.map(n => <li>{n.name}</li>)}</ul>
     </div>
   );
 };
 
-const repos = graphql<StarredReposQuery, StarredReposQueryVariables>(
-  REPO_QUERY,
-  {
-    props: ({ data: { loading, viewer, error } }): Props => ({
-      loading,
-      repos: viewer ? viewer.starredRepositories.nodes : []
-    })
-  }
-);
+const repos = graphql<
+  StarredReposQuery,
+  StarredReposQueryVariables & OwnProps
+>(REPO_QUERY, {
+  props: ({
+    data: { loading, viewer, error },
+    ownProps: { page }
+  }): Props & OwnProps => ({
+    loading,
+    repos: viewer ? viewer.starredRepositories.nodes : [],
+    page
+  })
+});
 
 export default repos(GitHubStars as any);

@@ -2,7 +2,12 @@ import * as React from 'react';
 import GitHubStars from './github-stars';
 import GitHubRepos from './github-repos';
 import { addMiddleware } from '../redux-dynamic-middlewares';
-import { injectAsyncReducer } from '../app';
+import { injectAsyncReducer } from '../router';
+import * as queryString from 'query-string';
+import { connect } from 'react-redux';
+import { replace } from 'react-router-redux';
+import routes from '../../shared/routes';
+import { withRouter } from 'react-router-dom';
 const styles = require('./github-page.css');
 
 import {
@@ -30,19 +35,55 @@ networkInterface.use([
 addMiddleware(client.middleware());
 injectAsyncReducer('apollo', client.reducer());
 
-const GitHubPage: React.SFC = () => (
-  <ApolloProvider client={client}>
-    <div>
-      <div className={styles.logoContainer}>
-        <img src="../../assets/github-logo.svg" className={styles.logo} />
-        <h1 className={styles.logoSubtitle}>Latest GitHub activity</h1>
-      </div>
-      <div className={styles.githubDetailsContainer}>
-        <GitHubStars reposCount={5} />
-        <GitHubRepos reposCount={5} />
-      </div>
-    </div>
-  </ApolloProvider>
-);
+interface Props {
+  readonly location: any;
+  readonly olderGithubRepo: (cursor: string) => void;
+  readonly newerGithubRepo: (cursor: string) => void;
+}
 
-export default GitHubPage;
+const GitHubPage: React.SFC<Props> = props => {
+  const query = queryString.parse(props.location.search);
+  return (
+    <ApolloProvider client={client}>
+      <div>
+        <div className={styles.logoContainer}>
+          <img src="../../assets/github-logo.svg" className={styles.logo} />
+          <h1 className={styles.logoSubtitle}>Latest GitHub activity</h1>
+        </div>
+        <div className={styles.githubDetailsContainer}>
+          <GitHubStars reposCount={5} page={1} />
+          <GitHubRepos
+            reposCount={5}
+            before={query.githubPageBefore}
+            after={query.githubPageAfter}
+            getNewerRepos={props.newerGithubRepo}
+            getOlderRepos={props.olderGithubRepo}
+          />
+        </div>
+      </div>
+    </ApolloProvider>
+  );
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    olderGithubRepo: (cursor: string) => {
+      dispatch(
+        replace({
+          pathname: routes.github,
+          search: queryString.stringify({ githubPageBefore: cursor })
+        })
+      );
+    },
+    newerGithubRepo: (cursor: string) => {
+      dispatch(
+        replace({
+          pathname: routes.github,
+          search: queryString.stringify({ githubPageAfter: cursor })
+        })
+      );
+    }
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(GitHubPage);
