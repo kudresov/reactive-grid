@@ -71,7 +71,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(
         replace({
           pathname: routes.github,
-          search: queryString.stringify({ githubPageBefore: cursor })
+          search: queryString.stringify({ githubPageAfter: cursor })
         })
       );
     },
@@ -79,7 +79,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(
         replace({
           pathname: routes.github,
-          search: queryString.stringify({ githubPageAfter: cursor })
+          search: queryString.stringify({ githubPageBefore: cursor })
         })
       );
     }

@@ -16,3 +16,7 @@
 .headerContainer {
   margin-bottom: 1.5rem;
 }
+
+.container {
+  width: 30vh;
+}

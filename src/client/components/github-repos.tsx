@@ -2,13 +2,20 @@ import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { GetLastReposQuery, GetLastReposQueryVariables } from '../../../schema';
 import Header from './header';
+import Loader from './loader';
 const styles = require('./github-section.css');
 
 const REPO_QUERY = gql`
   query GetLastRepos($last: Int, $first: Int, $before: String, $after: String) {
     viewer {
       name
-      repositories(last: $last, first: $first, before: $before, after: $after) {
+      repositories(
+        last: $last
+        first: $first
+        before: $before
+        after: $after
+        orderBy: { field: CREATED_AT, direction: DESC }
+      ) {
         edges {
           cursor
           node {
@@ -57,27 +64,28 @@ const GitHub: React.SFC<Props & GetLastReposQueryVariables & OwnProps> = ({
   hasOlderReposPage,
   hasNewerRepoPage
 }) => {
-  if (loading) {
-    return <h2>loading..</h2>;
-  }
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.headerContainer}>
         <img className={styles.icon} src="../../assets/repo.svg" />
         <h2 className={styles.header}>GitHub</h2>
       </div>
-      <ul className={styles.list}>{repos.map(n => <li>{n.name}</li>)}</ul>
+      {loading ? (
+        <Loader />
+      ) : (
+        <ul className={styles.list}>{repos.map(n => <li>{n.name}</li>)}</ul>
+      )}
       {hasOlderReposPage && (
         <button
           onClick={() => {
-            getOlderRepos(startCursor);
+            getOlderRepos(endCursor);
           }}
         >
           older
         </button>
       )}
       {hasNewerRepoPage && (
-        <button onClick={() => getNewerRepos(endCursor)}>newer</button>
+        <button onClick={() => getNewerRepos(startCursor)}>newer</button>
       )}
     </div>
   );
@@ -90,8 +98,8 @@ const repos = graphql<
   options: props => {
     return {
       variables: {
-        first: props.after ? props.reposCount : undefined,
-        last: props.after ? undefined : props.reposCount,
+        last: props.before ? props.reposCount : undefined,
+        first: props.before ? undefined : props.reposCount,
         before: props.before,
         after: props.after
       }
@@ -116,10 +124,10 @@ const repos = graphql<
         ? viewer.repositories.pageInfo.startCursor
         : undefined,
       hasOlderReposPage: viewer
-        ? viewer.repositories.pageInfo.hasPreviousPage
+        ? viewer.repositories.pageInfo.hasNextPage
         : undefined,
       hasNewerRepoPage: viewer
-        ? viewer.repositories.pageInfo.hasNextPage
+        ? viewer.repositories.pageInfo.hasPreviousPage
         : undefined,
       getOlderRepos: ownProps.getOlderRepos,
       getNewerRepos: ownProps.getNewerRepos
