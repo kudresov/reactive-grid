@@ -8,9 +8,24 @@
   color: #6a6a6a;
 }
 
+@keyframes appear {
+  from {
+    transform: translateY(10rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .list {
   color: #6a6a6a;
   line-height: 1.3rem;
+  animation-duration: 0.4s;
+  animation-fill-mode: both;
+  animation-name: appear;
+  animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .headerContainer {
@@ -18,5 +33,36 @@
 }
 
 .container {
-  width: 30vh;
+  width: 40vh;
+}
+
+.listContainer {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-height: 7rem;
+}
+
+.link {
+  text-decoration: none;
+  color: #6a6a6a;
+  font-weight: 200;
+  user-select: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkDisabled {
+  user-select: none;
+  color: #6a6a6a;
+  font-weight: 200;
+  opacity: 0.2;
+}
+
+.separator {
+  color: #6a6a6a;
+  user-select: none;
 }

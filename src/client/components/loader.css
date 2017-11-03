@@ -5,14 +5,13 @@
   height: 5em;
 }
 .loader {
-  margin: 60px auto;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
   border-top: 0.8em solid rgba(45, 49, 66, 0.2);
   border-right: 0.8em solid rgba(45, 49, 66, 0.2);
   border-bottom: 0.8em solid rgba(45, 49, 66, 0.2);
-  border-left: 0.8em solid #2D3142;
+  border-left: 0.8em solid #2d3142;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);

@@ -70,23 +70,35 @@ const GitHub: React.SFC<Props & GetLastReposQueryVariables & OwnProps> = ({
         <img className={styles.icon} src="../../assets/repo.svg" />
         <h2 className={styles.header}>GitHub</h2>
       </div>
-      {loading ? (
-        <Loader />
-      ) : (
-        <ul className={styles.list}>{repos.map(n => <li>{n.name}</li>)}</ul>
-      )}
-      {hasOlderReposPage && (
-        <button
-          onClick={() => {
+      <div className={styles.listContainer}>
+        {loading ? (
+          <Loader />
+        ) : (
+          <ul className={styles.list}>{repos.map(n => <li>{n.name}</li>)}</ul>
+        )}
+      </div>
+
+      <a
+        className={hasNewerRepoPage ? styles.link : styles.linkDisabled}
+        onClick={() => {
+          if (hasNewerRepoPage) {
+            getNewerRepos(startCursor);
+          }
+        }}
+      >
+        newer
+      </a>
+      <span className={styles.separator}> | </span>
+      <a
+        className={hasOlderReposPage ? styles.link : styles.linkDisabled}
+        onClick={() => {
+          if (hasOlderReposPage) {
             getOlderRepos(endCursor);
-          }}
-        >
-          older
-        </button>
-      )}
-      {hasNewerRepoPage && (
-        <button onClick={() => getNewerRepos(startCursor)}>newer</button>
-      )}
+          }
+        }}
+      >
+        older
+      </a>
     </div>
   );
 };
