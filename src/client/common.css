@@ -3,13 +3,3 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-
-h1,
-h2,
-h3 {
-  color: #6a6a6a;
-}
-
-h1 {
-  font-size: 2rem;
-}

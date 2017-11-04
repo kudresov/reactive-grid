@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { GetLastReposQuery, GetLastReposQueryVariables } from '../../../schema';
-import Header from './header';
+import Header from './header/header';
 import Loader from './loader';
 const styles = require('./github-section.css');
 

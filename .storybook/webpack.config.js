@@ -31,6 +31,11 @@ module.exports = (baseConfig, env) => {
     loader: cssLoader
   });
 
+  config.module.rules.push({
+    test: /\.(png|jpg|woff|svg|eot|ttf|gif)$/,
+    loader: 'file-loader'
+  });
+
   config.plugins.push(
     new ExtractTextPlugin({
       filename: '[name].css',
@@ -40,6 +45,5 @@ module.exports = (baseConfig, env) => {
 
   config.resolve.extensions.push('.ts', '.tsx', '.css');
 
-  console.log(JSON.stringify(config, null, 2));
   return config;
 };
