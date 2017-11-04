@@ -14,11 +14,13 @@
     "start": "yarn run start:client & yarn run start:server",
     "postinstall": "yarn run build:server && yarn run build:client",
     "get-schema": "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
-    "generate-types": "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts"
+    "generate-types": "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "author": "Vitalij Kudresov",
   "license": "ISC",
   "dependencies": {
+    "@storybook/react": "^3.2.14",
     "@types/express": "^4.0.36",
     "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.22",
@@ -34,6 +36,7 @@
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "global": "^4.3.2",
     "history": "^4.7.2",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.4",
@@ -59,6 +62,7 @@
     "redux-thunk": "^2.2.0",
     "source-map-loader": "^0.2.1",
     "stats-webpack-plugin": "^0.6.1",
+    "storybook-router": "^0.3.2",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.3.7",
     "ts-node": "^3.3.0",
