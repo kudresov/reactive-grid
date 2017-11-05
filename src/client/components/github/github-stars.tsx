@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
-import { StarredReposQuery, StarredReposQueryVariables } from '../../../schema';
+import {
+  StarredReposQuery,
+  StarredReposQueryVariables
+} from '../../../../schema';
 const styles = require('./github-section.css');
 
 const REPO_QUERY = gql`

@@ -7,11 +7,11 @@ import Header from './components/header/header';
 import routes from '../shared/routes';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import GithubLoadable from './components/github-container';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
 import createReducer from './reducers';
 import Home from './components/home';
 import Footer from './components/footer/footer';
+import GithubLoadable from './components/github/github-container';
 require('./reset.css');
 require('./common.css');
 
