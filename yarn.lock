@@ -196,6 +196,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-redux@^5.0.12":
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.12.tgz#c066812eb970009b373372f439d08265ed2a6f8e"
+  dependencies:
+    "@types/react" "*"
+    redux "^3.6.0"
+
 "@types/react-router-dom@^4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.0.7.tgz#65b192f7a5dbd1c05a8d04cc5863c9775705a435"
@@ -6153,7 +6160,7 @@ redux-thunk@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
-redux@^3.4.0, redux@^3.7.2:
+redux@^3.4.0, redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:

@@ -6,11 +6,15 @@ import {
   GetLastReposQuery,
   GetLastReposQueryVariables
 } from '../../../../../schema';
-import { compose } from 'redux';
 import { replace } from 'react-router-redux';
 import routes from '../../../../shared/routes';
 import * as queryString from 'query-string';
 import { connect } from 'react-redux';
+import { Repo } from '../../../../typings';
+import {
+  createGetNextRepos,
+  createGetPreviousRepos
+} from '../../../redux/actions/repos';
 
 const styles = require('../github-section.css');
 
@@ -43,21 +47,19 @@ const REPO_QUERY = gql`
 `;
 
 interface Props {
-  readonly loading: boolean;
-  readonly repos: {
-    readonly name: string;
-  }[];
-  readonly endCursor: string;
-  readonly startCursor: string;
-  readonly hasNext: boolean;
-  readonly hasPrevious: boolean;
-}
-
-interface GQProps {
   readonly getNext: () => void;
   readonly getPrevious: () => void;
+}
+
+interface GQLProps {
   readonly before?: string;
   readonly after?: string;
+  readonly endCursor?: string;
+  readonly startCursor?: string;
+  readonly loading: boolean;
+  readonly repos: Repo[];
+  readonly hasNext: boolean;
+  readonly hasPrevious: boolean;
 }
 
 interface OwnProps {
@@ -80,62 +82,47 @@ const getEndCursor = (query: GetLastReposQuery) =>
 const getStartCursor = (query: GetLastReposQuery) =>
   query.viewer ? query.viewer.repositories.pageInfo.startCursor : undefined;
 
-const GitHubContainer: React.SFC<
-  Props & GetLastReposQueryVariables & GQProps & OwnProps
-> = props => <GitHubRepos {...props} />;
+const getHasNextPage = (query: GetLastReposQuery) =>
+  query.viewer ? query.viewer.repositories.pageInfo.hasNextPage : undefined;
+
+const getHasPreviousPage = (query: GetLastReposQuery) =>
+  query.viewer ? query.viewer.repositories.pageInfo.hasPreviousPage : undefined;
+
+const GitHubContainer: React.SFC = props => {
+  return <GitHubRepos {...props} />;
+};
 
 const repos = graphql<
   GetLastReposQuery,
-  GetLastReposQueryVariables & GQProps & OwnProps
+  GetLastReposQueryVariables & OwnProps
 >(REPO_QUERY, {
-  options: props => {
-    return {
-      variables: {
-        last: props.before ? props.reposCount : undefined,
-        first: props.before ? undefined : props.reposCount,
-        before: props.before,
-        after: props.after
-      }
-    };
-  },
-  props: ({
-    ownProps,
-    data,
-    ownProps: { before, after }
-  }): Props & OwnProps => ({
+  options: ({ before, after, reposCount }) => ({
+    variables: {
+      last: before ? reposCount : undefined,
+      first: before ? undefined : reposCount,
+      before: before,
+      after: after
+    }
+  }),
+  props: ({ ownProps, data, ownProps: { before, after } }): GQLProps => ({
     loading: data.loading,
     repos: getRepos(data),
-    reposCount: ownProps.reposCount,
     endCursor: getEndCursor(data),
     startCursor: getStartCursor(data),
-    hasNext: data.viewer
-      ? data.viewer.repositories.pageInfo.hasNextPage
+    hasNext: getHasNextPage(data),
+    hasPrevious: getHasPreviousPage(data),
+    before: data.viewer
+      ? data.viewer.repositories.pageInfo.endCursor
       : undefined,
-    hasPrevious: data.viewer
-      ? data.viewer.repositories.pageInfo.hasPreviousPage
+    after: data.viewer
+      ? data.viewer.repositories.pageInfo.startCursor
       : undefined
   })
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    olderGithubRepo: (cursor: string) => {
-      dispatch(
-        replace({
-          pathname: routes.github,
-          search: queryString.stringify({ githubPageAfter: cursor })
-        })
-      );
-    },
-    newerGithubRepo: (cursor: string) => {
-      dispatch(
-        replace({
-          pathname: routes.github,
-          search: queryString.stringify({ githubPageBefore: cursor })
-        })
-      );
-    }
-  };
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getNext: () => dispatch(createGetNextRepos(ownProps.startCursor)),
+  getPrevious: () => dispatch(createGetPreviousRepos(ownProps.endCursor))
+});
 
-export default connect(undefined, mapDispatchToProps)(repos(GitHubContainer));
+export default repos(connect(undefined, mapDispatchToProps)(GitHubContainer));

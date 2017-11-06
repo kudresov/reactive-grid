@@ -1,6 +1,6 @@
 import * as React from 'react';
 import GitHubStars from './github-stars';
-import GitHubRepos from './repos/github-repos-container';
+import GitHubReposContainer from './repos/github-repos-container';
 import { addMiddleware } from '../../redux-dynamic-middlewares';
 import { injectAsyncReducer } from '../../router';
 import * as queryString from 'query-string';
@@ -42,7 +42,6 @@ interface Props {
 }
 
 const GitHubPage: React.SFC<Props> = props => {
-  const query = queryString.parse(props.location.search);
   return (
     <ApolloProvider client={client}>
       <div>
@@ -52,13 +51,7 @@ const GitHubPage: React.SFC<Props> = props => {
         </div>
         <div className={styles.githubDetailsContainer}>
           <GitHubStars reposCount={5} page={1} />
-          <GitHubRepos
-            reposCount={5}
-            before={query.githubPageBefore}
-            after={query.githubPageAfter}
-            getNewerRepos={props.newerGithubRepo}
-            getOlderRepos={props.olderGithubRepo}
-          />
+          <GitHubReposContainer reposCount={5} />
         </div>
       </div>
     </ApolloProvider>
