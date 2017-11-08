@@ -9,10 +9,10 @@ interface Props {
   readonly repos: Repo[];
   readonly hasNext: boolean;
   readonly hasPrevious: boolean;
-  readonly getNext: () => void;
-  readonly getPrevious: () => void;
-  readonly before?: string;
-  readonly after?: string;
+  readonly getNext: (cursor: string) => void;
+  readonly getPrevious: (cursor: string) => void;
+  readonly startCursor: string;
+  readonly endCursor: string;
 }
 
 const GitHubRepos: React.SFC<Partial<Props>> = ({
@@ -22,8 +22,8 @@ const GitHubRepos: React.SFC<Partial<Props>> = ({
   hasPrevious,
   getNext,
   getPrevious,
-  before,
-  after
+  startCursor,
+  endCursor
 }) => {
   return (
     <div className={styles.container}>
@@ -43,14 +43,18 @@ const GitHubRepos: React.SFC<Partial<Props>> = ({
 
       <a
         className={hasPrevious ? styles.link : styles.linkDisabled}
-        onClick={getPrevious}
+        onClick={() => {
+          hasPrevious && getPrevious(startCursor);
+        }}
       >
         newer
       </a>
       <span className={styles.separator}> | </span>
       <a
         className={hasNext ? styles.link : styles.linkDisabled}
-        onClick={() => getNext()}
+        onClick={() => {
+          hasNext && getNext(endCursor);
+        }}
       >
         older
       </a>

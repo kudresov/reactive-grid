@@ -116,6 +116,14 @@ const getPlugins = (options: Options): webpack.Plugin[] => {
       })
     );
     plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+  } else {
+    plugins.push(
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('development')
+        }
+      })
+    );
   }
 
   if (!options.codeSplitting) {

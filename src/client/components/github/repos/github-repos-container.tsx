@@ -46,14 +46,17 @@ const REPO_QUERY = gql`
   }
 `;
 
+interface DispatchProps {
+  readonly getNext: (cursor: string) => void;
+  readonly getPrevious: (cursor: string) => void;
+}
+
 interface Props {
-  readonly getNext: () => void;
-  readonly getPrevious: () => void;
+  readonly after: string;
+  readonly before: string;
 }
 
 interface GQLProps {
-  readonly before?: string;
-  readonly after?: string;
   readonly endCursor?: string;
   readonly startCursor?: string;
   readonly loading: boolean;
@@ -88,7 +91,10 @@ const getHasNextPage = (query: GetLastReposQuery) =>
 const getHasPreviousPage = (query: GetLastReposQuery) =>
   query.viewer ? query.viewer.repositories.pageInfo.hasPreviousPage : undefined;
 
-const GitHubContainer: React.SFC = props => {
+const GitHubContainer: React.SFC<
+  OwnProps & GQLProps & Props & DispatchProps
+> = props => {
+  // console.log(JSON.stringify(props, null, 2));
   return <GitHubRepos {...props} />;
 };
 
@@ -96,7 +102,7 @@ const repos = graphql<
   GetLastReposQuery,
   GetLastReposQueryVariables & OwnProps
 >(REPO_QUERY, {
-  options: ({ before, after, reposCount }) => ({
+  options: ({ before, after, reposCount, ...rest }) => ({
     variables: {
       last: before ? reposCount : undefined,
       first: before ? undefined : reposCount,
@@ -110,19 +116,30 @@ const repos = graphql<
     endCursor: getEndCursor(data),
     startCursor: getStartCursor(data),
     hasNext: getHasNextPage(data),
-    hasPrevious: getHasPreviousPage(data),
-    before: data.viewer
-      ? data.viewer.repositories.pageInfo.endCursor
-      : undefined,
-    after: data.viewer
-      ? data.viewer.repositories.pageInfo.startCursor
-      : undefined
+    hasPrevious: getHasPreviousPage(data)
   })
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  getNext: () => dispatch(createGetNextRepos(ownProps.startCursor)),
-  getPrevious: () => dispatch(createGetPreviousRepos(ownProps.endCursor))
+const mapDispatchToProps = dispatch => ({
+  getNext: cursor => dispatch(createGetNextRepos(cursor)),
+  getPrevious: cursor => dispatch(createGetPreviousRepos(cursor))
 });
 
-export default repos(connect(undefined, mapDispatchToProps)(GitHubContainer));
+const mapStateToProps = state => {
+  const query = queryString.parse(state.routing.location.search);
+  return {
+    after: query.githubPageAfter,
+    before: query.githubPageBefore
+  };
+};
+// export default connect(mapStateToProps, mapDispatchToProps)(
+//   repos(GitHubContainer)
+// );
+const x = repos(GitHubContainer);
+
+interface StateFromProps {}
+
+export default connect<Props, DispatchProps, OwnProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(repos(GitHubContainer) as any);
