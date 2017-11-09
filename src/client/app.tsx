@@ -14,7 +14,7 @@ import Footer from './components/footer/footer';
 import GithubLoadable from './components/github/github-container';
 require('./reset.css');
 require('./common.css');
-require('preact/debug');
+// require('preact/debug');
 
 const App = () => (
   <Switch>

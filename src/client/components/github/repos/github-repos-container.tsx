@@ -63,6 +63,8 @@ interface GQLProps {
   readonly repos: Repo[];
   readonly hasNext: boolean;
   readonly hasPrevious: boolean;
+  readonly getNext: () => void;
+  readonly getPrevious: () => void;
 }
 
 interface OwnProps {
@@ -70,7 +72,7 @@ interface OwnProps {
 }
 
 const getRepos = (query: GetLastReposQuery): { name: string }[] => {
-  if (!query || !query.viewer) {
+  if (!query.viewer) {
     return;
   }
 
@@ -79,30 +81,17 @@ const getRepos = (query: GetLastReposQuery): { name: string }[] => {
   }));
 };
 
-const getEndCursor = (query: GetLastReposQuery) =>
-  query.viewer ? query.viewer.repositories.pageInfo.endCursor : undefined;
-
-const getStartCursor = (query: GetLastReposQuery) =>
-  query.viewer ? query.viewer.repositories.pageInfo.startCursor : undefined;
-
-const getHasNextPage = (query: GetLastReposQuery) =>
-  query.viewer ? query.viewer.repositories.pageInfo.hasNextPage : undefined;
-
-const getHasPreviousPage = (query: GetLastReposQuery) =>
-  query.viewer ? query.viewer.repositories.pageInfo.hasPreviousPage : undefined;
-
 const GitHubContainer: React.SFC<
   OwnProps & GQLProps & Props & DispatchProps
 > = props => {
-  // console.log(JSON.stringify(props, null, 2));
   return <GitHubRepos {...props} />;
 };
 
 const repos = graphql<
   GetLastReposQuery,
-  GetLastReposQueryVariables & OwnProps
+  GetLastReposQueryVariables & OwnProps & Props & DispatchProps
 >(REPO_QUERY, {
-  options: ({ before, after, reposCount, ...rest }) => ({
+  options: ({ before, after, reposCount }) => ({
     variables: {
       last: before ? reposCount : undefined,
       first: before ? undefined : reposCount,
@@ -110,14 +99,29 @@ const repos = graphql<
       after: after
     }
   }),
-  props: ({ ownProps, data, ownProps: { before, after } }): GQLProps => ({
-    loading: data.loading,
-    repos: getRepos(data),
-    endCursor: getEndCursor(data),
-    startCursor: getStartCursor(data),
-    hasNext: getHasNextPage(data),
-    hasPrevious: getHasPreviousPage(data)
-  })
+  props: ({
+    data,
+    ownProps: { before, after, getNext, getPrevious }
+  }): GQLProps => {
+    const defaults = {
+      startCursor: undefined,
+      endCursor: undefined,
+      hasNextPage: false,
+      hasPreviousPage: false
+    };
+    const { startCursor, endCursor, hasNextPage, hasPreviousPage } = data.viewer
+      ? data.viewer.repositories.pageInfo
+      : defaults;
+    return {
+      loading: data.loading,
+      repos: getRepos(data),
+      startCursor: startCursor,
+      hasNext: hasNextPage,
+      hasPrevious: hasPreviousPage,
+      getNext: () => hasNextPage && getNext(endCursor),
+      getPrevious: () => hasPreviousPage && getPrevious(startCursor)
+    };
+  }
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -132,14 +136,8 @@ const mapStateToProps = state => {
     before: query.githubPageBefore
   };
 };
-// export default connect(mapStateToProps, mapDispatchToProps)(
-//   repos(GitHubContainer)
-// );
-const x = repos(GitHubContainer);
-
-interface StateFromProps {}
 
 export default connect<Props, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
-)(repos(GitHubContainer) as any);
+)(repos(GitHubContainer));
