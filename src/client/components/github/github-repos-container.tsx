@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
-import Loader from '../../loader/loader';
-import GitHubRepos from './github-repos';
+import Loader from '../loader/loader';
+import GitHubSection from './github-section';
 import {
   GetLastReposQuery,
   GetLastReposQueryVariables
-} from '../../../../../schema';
+} from '../../../../schema';
 import { replace } from 'react-router-redux';
-import routes from '../../../../shared/routes';
+import routes from '../../../shared/routes';
 import * as queryString from 'query-string';
 import { connect } from 'react-redux';
-import { Repo } from '../../../../typings';
+import { Repo } from '../../../typings';
 import {
   createGetNextRepos,
   createGetPreviousRepos
-} from '../../../redux/actions/repos';
+} from '../../redux/actions/repos';
 
-const styles = require('../github-section.css');
+const styles = require('./github-section.css');
 
 const REPO_QUERY = gql`
   query GetLastRepos($last: Int, $first: Int, $before: String, $after: String) {
@@ -84,7 +84,13 @@ const getRepos = (query: GetLastReposQuery): { name: string }[] => {
 const GitHubContainer: React.SFC<
   OwnProps & GQLProps & Props & DispatchProps
 > = props => {
-  return <GitHubRepos {...props} />;
+  return (
+    <GitHubSection
+      {...props}
+      title="Github Repos"
+      imgSrc="../../assets/repo.svg"
+    />
+  );
 };
 
 const repos = graphql<

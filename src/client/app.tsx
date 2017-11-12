@@ -6,7 +6,7 @@ import Projects from './components/contacts';
 import Header from './components/header/header';
 import routes from '../shared/routes';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
 import createReducer from './reducers';
 import Home from './components/home';

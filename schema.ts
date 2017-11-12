@@ -41,19 +41,38 @@ export type GetLastReposQuery = {
 };
 
 export type StarredReposQueryVariables = {
-  reposCount?: number | null,
+  last?: number | null,
+  first?: number | null,
+  before?: string | null,
+  after?: string | null,
 };
 
 export type StarredReposQuery = {
   // The currently authenticated user.
   viewer:  {
+    // The user's public profile name.
+    name: string | null,
     // Repositories the user has starred.
     starredRepositories:  {
-      // A list of nodes.
-      nodes:  Array< {
-        // The name of the repository.
-        name: string,
+      // A list of edges.
+      edges:  Array< {
+        cursor: string,
+        node:  {
+          // The name of the repository.
+          name: string,
+        },
       } | null > | null,
+      // Information to aid in pagination.
+      pageInfo:  {
+        // When paginating backwards, are there more items?
+        hasPreviousPage: boolean,
+        // When paginating forwards, are there more items?
+        hasNextPage: boolean,
+        // When paginating forwards, the cursor to continue.
+        endCursor: string | null,
+        // When paginating backwards, the cursor to continue.
+        startCursor: string | null,
+      },
     },
   },
 };

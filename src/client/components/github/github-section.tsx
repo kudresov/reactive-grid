@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Repo } from '../../../../typings';
-import Loader from '../../loader/loader';
+import { Repo } from '../../../typings';
+import Loader from '../loader/loader';
 
-const styles = require('../github-section.css');
+const styles = require('./github-section.css');
 
 interface Props {
   readonly loading: boolean;
@@ -13,19 +13,26 @@ interface Props {
   readonly getPrevious: () => void;
 }
 
-const GitHubRepos: React.SFC<Props> = ({
+interface OwnProps {
+  readonly title: string;
+  readonly imgSrc: string;
+}
+
+const GitHubSection: React.SFC<Props & OwnProps> = ({
   loading,
   repos,
   hasNext,
   hasPrevious,
   getNext,
-  getPrevious
+  getPrevious,
+  title,
+  imgSrc
 }) => {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
-        <img className={styles.icon} src="../../assets/repo.svg" />
-        <h2 className={styles.header}>GitHub!</h2>
+        <img className={styles.icon} src={imgSrc} />
+        <h2 className={styles.header}>{title}</h2>
       </div>
       <div className={styles.listContainer}>
         {loading ? (
@@ -54,4 +61,4 @@ const GitHubRepos: React.SFC<Props> = ({
   );
 };
 
-export default GitHubRepos;
+export default GitHubSection;
