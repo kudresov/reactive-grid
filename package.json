@@ -13,8 +13,10 @@
     "start:server-prod": "node dist/server/index.js",
     "start": "yarn run start:client & yarn run start:server",
     "postinstall": "yarn run build:server && yarn run build:client",
-    "get-schema": "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
-    "generate-types": "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts",
+    "get-schema":
+      "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
+    "generate-types":
+      "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts",
     "storybook": "start-storybook -s ./src/client -p 9001  -c .storybook"
   },
   "author": "Vitalij Kudresov",
@@ -77,9 +79,8 @@
     "webpack-hot-middleware": "^2.19.1",
     "webpack-hot-server-middleware": "^0.1.0",
     "webpack-node-externals": "^1.6.0",
-    "webpack-stats-plugin": "^0.1.5"
-  },
-  "devDependencies": {
+    "webpack-stats-plugin": "^0.1.5",
     "@storybook/addon-backgrounds": "^3.0.0"
-  }
+  },
+  "devDependencies": {}
 }
