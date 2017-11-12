@@ -1,9 +1,8 @@
 import * as React from 'react';
-import TechLogo from './tech-logo';
-import TechSection from './tech-section';
-import FrontBackendSection from './frontend-backend-section';
-import GithubLoadable from '../github-container';
-const styles = require('./home.css');
+import FrontBackendSection from './frontend-backend-section/frontend-backend-section';
+import TechSection from './tech-section/tech-section';
+import GithubLoadable from '../github/github-container';
+const styles = require('./index.css');
 
 class Home extends React.Component {
   componentDidMount() {

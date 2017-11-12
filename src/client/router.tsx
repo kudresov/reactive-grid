@@ -8,12 +8,14 @@ import dynamicMiddlewares from './redux-dynamic-middlewares';
 import { createStore, applyMiddleware } from 'redux';
 import createReducer from './reducers';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
 
 addMiddleware(middleware);
 addMiddleware(logger);
+addMiddleware(thunk);
 
 const store = createStore(createReducer(), applyMiddleware(dynamicMiddlewares));
 (store as any).asyncReducers = {};

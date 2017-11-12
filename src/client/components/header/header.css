@@ -11,6 +11,7 @@
 }
 
 .a {
+  user-select: none;
   text-decoration: none;
   color: #6a6a6a;
   padding: 0.5rem;

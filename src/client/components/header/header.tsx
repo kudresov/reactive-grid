@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 // import * as styles from './header.css';
-import Logo from './logo';
-import routes from '../../shared/routes';
+import Logo from '../logo/logo';
+import routes from '../../../shared/routes';
 const styles = require('./header.css');
 
 const Header: React.SFC = () => (

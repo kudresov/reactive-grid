@@ -1,13 +1,13 @@
 import * as React from 'react';
-import GitHubStars from './github-stars';
-import GitHubRepos from './github-repos';
-import { addMiddleware } from '../redux-dynamic-middlewares';
-import { injectAsyncReducer } from '../router';
+import { addMiddleware } from '../../redux-dynamic-middlewares';
+import { injectAsyncReducer } from '../../router';
 import * as queryString from 'query-string';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
-import routes from '../../shared/routes';
+import routes from '../../../shared/routes';
 import { withRouter } from 'react-router-dom';
+import GitHubStarsContainer from './github-repos-container';
+import GitHubStarsStarsContainer from './github-stars-container';
 const styles = require('./github-page.css');
 
 import {
@@ -42,7 +42,6 @@ interface Props {
 }
 
 const GitHubPage: React.SFC<Props> = props => {
-  const query = queryString.parse(props.location.search);
   return (
     <ApolloProvider client={client}>
       <div>
@@ -51,14 +50,8 @@ const GitHubPage: React.SFC<Props> = props => {
           <h1 className={styles.logoSubtitle}>Latest GitHub activity</h1>
         </div>
         <div className={styles.githubDetailsContainer}>
-          <GitHubStars reposCount={5} page={1} />
-          <GitHubRepos
-            reposCount={5}
-            before={query.githubPageBefore}
-            after={query.githubPageAfter}
-            getNewerRepos={props.newerGithubRepo}
-            getOlderRepos={props.olderGithubRepo}
-          />
+          <GitHubStarsContainer reposCount={5} />
+          <GitHubStarsStarsContainer reposCount={5} />
         </div>
       </div>
     </ApolloProvider>

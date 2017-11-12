@@ -3,17 +3,18 @@ import { Route, Switch } from 'react-router-dom';
 import Blog from './components/blog';
 import About from './components/about';
 import Projects from './components/contacts';
-import Header from './components/header';
+import Header from './components/header/header';
 import routes from '../shared/routes';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import GithubLoadable from './components/github-container';
+import { createStore } from 'redux';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
 import createReducer from './reducers';
-import Home from './components/home/home';
-import Footer from './components/footer';
+import Home from './components/home';
+import Footer from './components/footer/footer';
+import GithubLoadable from './components/github/github-container';
 require('./reset.css');
 require('./common.css');
+// require('preact/debug');
 
 const App = () => (
   <Switch>
