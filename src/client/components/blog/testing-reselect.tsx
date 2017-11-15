@@ -1,7 +1,7 @@
-import * as React from 'react';
-const styles = require('./header.css');
+import * as React from "react";
+const styles = require("./blog.css");
 
-const BlogItem: React.SFC = () => (
+const TestingReselect: React.SFC = () => (
   <div>
     <h1 className={styles.h1}>Introduction</h1>
     <p>This is the introduction</p>
