@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StaticRouter } from 'react-router';
 import * as ReactDOMServer from 'react-dom/server';
 import App from './app';
-import { compose, filter } from 'ramda';
+import { pipe, compose, filter } from 'ramda';
 
 export const render = (url: string) =>
   ReactDOMServer.renderToString(
@@ -22,10 +22,10 @@ const convertToCssTags = (css: string[]) =>
 const toArray = (item: string[] | string) =>
   Array.isArray(item) ? item : [item];
 
-const jsFilter = (f: string) => f.endsWith('.js');
-const cssFilter = (f: string) => f.endsWith('.css');
-const toScriptTag = compose(convertToScriptTags, filter(jsFilter), toArray);
-const toCssTag = compose(convertToCssTags, filter(cssFilter), toArray);
+const jsFilter = fs => fs.filter(f => f.endsWith('.js'));
+const cssFilter = fs => fs.filter(f => f.endsWith('.css'));
+const toScriptTag = compose(convertToScriptTags, jsFilter, toArray);
+const toCssTag = compose(convertToCssTags, cssFilter, toArray);
 
 module.exports = function serverRenderer({ clientStats, serverStats }) {
   return (req, res) => {
