@@ -1,6 +1,6 @@
 import * as React from 'react';
-const styles = require('./blog.css');
+const styles = require('./blog-item.css');
 
-const {{ComponentName}}: React.SFC = () => (
+export const {{ComponentName}}: React.SFC = () => (
   {{content}}
 );

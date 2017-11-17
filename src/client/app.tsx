@@ -21,7 +21,9 @@ const App = () => (
     <div>
       <Header />
       <Route exact path={routes.home} component={Home} />
-      <Route path={routes.blog} component={Blog} />
+      <Route path={routes.blog} component={Blog}>
+        {/* <Route path={routes.blogTestingReselect} component={TestingReselect} /> */}
+      </Route>
       <Route path={routes.about} component={About} />
       <Route path={routes.projects} component={Projects} />
       <Route path={routes.github} component={GithubLoadable} />

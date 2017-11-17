@@ -22,20 +22,20 @@ const Header: React.SFC = () => (
         <NavLink
           activeClassName={styles.activeLink}
           className={styles.a}
-          to={routes.blog}
-        >
-          Blog
-        </NavLink>
-      </li>
-      <li className={styles.li}>
-        <NavLink
-          activeClassName={styles.activeLink}
-          className={styles.a}
           to={routes.about}
         >
           About us
         </NavLink>
       </li> */}
+      <li className={styles.li}>
+        <NavLink
+          activeClassName={styles.activeLink}
+          className={styles.a}
+          to={routes.blog}
+        >
+          Blog
+        </NavLink>
+      </li>
       <li className={styles.li}>
         <NavLink
           activeClassName={styles.activeLink}

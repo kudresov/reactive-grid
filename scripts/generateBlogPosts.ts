@@ -7,9 +7,10 @@ const BLOG_FOLDER_PATH = './blog';
 const BLOG_OUTPUT_FOLDER_PATH = './src/client/components/blog/';
 const renderer = new marked.Renderer();
 
-renderer.heading = (text, level) => {
-  return `<h1 className={styles.h${level}}>${text}</h1>`;
-};
+renderer.heading = (text, level) =>
+  `<h1 className={styles.h${level}}>${text}</h1>`;
+
+renderer.paragraph = text => `<p className={styles.p}>${text}</p>`;
 
 const blogItemTemplate = fs
   .readFileSync('./blog/blog-item.template')
