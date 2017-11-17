@@ -1,0 +1,46 @@
+@keyframes dots {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+.baseDot {
+  background-color: #444;
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin: 3px;
+  animation-name: dots;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+
+.container {
+  display: inline-block;
+}
+
+.dot1 {
+  composes: baseDot;
+  animation-delay: 0;
+}
+
+.dot2 {
+  composes: baseDot;
+  animation-delay: 0.15s;
+}
+
+.dot3 {
+  composes: baseDot;
+  animation-delay: 0.3s;
+}
