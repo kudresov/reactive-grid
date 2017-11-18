@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Repo } from '../../../typings';
 import DotsLoader from '../dots-loader/dots-loader';
+import { SFC } from 'react';
 
 const styles = require('./github-section.css');
 
@@ -18,7 +19,7 @@ interface OwnProps {
   readonly imgSrc: string;
 }
 
-const GitHubSection: React.SFC<Props & OwnProps> = ({
+const GitHubSection: SFC<Props & OwnProps> = ({
   loading,
   repos,
   hasNext,

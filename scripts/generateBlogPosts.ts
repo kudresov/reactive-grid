@@ -1,10 +1,14 @@
+#!/usr/bin/env ts-node
 import * as fs from 'fs';
 import * as marked from 'marked';
 import { compose } from 'ramda';
 import * as prettier from 'prettier';
+import { format } from 'date-fns';
 
 const BLOG_FOLDER_PATH = './blog';
 const BLOG_OUTPUT_FOLDER_PATH = './src/client/components/blog/';
+const BLOG_ITEM_OVERVIEW_PATH = '/blog-item-overview.template';
+
 const renderer = new marked.Renderer();
 
 renderer.heading = (text, level) =>
@@ -31,6 +35,20 @@ const applyTemplate = (componentName: string) => content =>
   blogItemTemplate
     .replace('{{content}}', content)
     .replace('{{ComponentName}}', componentName);
+
+const applyOverviewTemplate = (
+  template: string,
+  date: string,
+  title: string,
+  summary: string,
+  componentName: string
+) =>
+  template
+    .replace('{{date}}', date)
+    .replace('{{title}}', title)
+    .replace('{{summary}}', summary)
+    .replace('{{ComponentName}}', componentName);
+
 const getBlog = (componentName: string) =>
   compose(
     prettier.format,
@@ -44,12 +62,26 @@ const blogs = blogFiles.map(bf => {
   const blogFileName = bf.split('.md')[0];
   const blogConfigFileName = blogFileName + '.json';
   const blogConfigFile = JSON.parse(readFile(blogConfigFileName));
+  const blogItemOverview = readFile(BLOG_ITEM_OVERVIEW_PATH);
+  const contentOverview = applyOverviewTemplate(
+    blogItemOverview,
+    format(blogConfigFile.date, 'DD MMM YYYY'),
+    blogConfigFile.title,
+    blogConfigFile.summary,
+    blogConfigFile.componentName + 'Overview'
+  );
+
   return {
     content: getBlog(blogConfigFile.componentName)(bf),
+    contentOverview,
     fileName: blogFileName
   };
 });
 
-blogs.forEach(b =>
-  fs.writeFileSync(BLOG_OUTPUT_FOLDER_PATH + b.fileName + '.tsx', b.content)
-);
+blogs.forEach(b => {
+  fs.writeFileSync(BLOG_OUTPUT_FOLDER_PATH + b.fileName + '.tsx', b.content);
+  fs.writeFileSync(
+    BLOG_OUTPUT_FOLDER_PATH + b.fileName + '-overview.tsx',
+    b.contentOverview
+  );
+});

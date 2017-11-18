@@ -2,7 +2,7 @@ import * as React from "react";
 const styles = require("./blog-item.css");
 
 export const SampleBlog: React.SFC = () => (
-  <div>
+  <div className={styles.container}>
     <h1 className={styles.h1}>Introduction</h1>
     <p className={styles.p}>
       If you are developing something which is slightly more complicated than

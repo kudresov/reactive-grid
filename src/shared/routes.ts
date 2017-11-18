@@ -4,7 +4,8 @@ const routes = {
   about: '/about',
   projects: '/projects',
   github: '/github',
-  blogTestingReselect: '/testing-reselect'
+  blogTestingReselect: '/testing-reselect',
+  sampleBlog: '/blog/sample-blog-overview'
 };
 
 export default routes;
