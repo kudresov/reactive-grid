@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { SFC } from 'react';
+import { Link } from 'react-router-dom';
 const styles = require('./blog-item-overview.css');
 
 export const {{ComponentName}}: SFC = () => (
-  <div>
-    <p className={styles.date}>{{date}}</p>
-    <h1 className={styles.title}>{{title}}</h1>
-    <h2 className={styles.summary}>{{summary}}</h2>
-  </div>
+  <Link className={styles.link} to="{{path}}">
+    <div>
+      <p className={styles.date}>{{date}}</p>
+      <h1 className={styles.title}>{{title}}</h1>
+      <h2 className={styles.summary}>{{summary}}</h2>
+    </div>
+  </Link>
 );

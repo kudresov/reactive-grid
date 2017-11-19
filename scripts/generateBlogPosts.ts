@@ -29,7 +29,6 @@ const blogFiles = filterMarkdown(files);
 const readFile = filePath =>
   fs.readFileSync(`${BLOG_FOLDER_PATH}/${filePath}`).toString('utf-8');
 const parseBlogItem = (blogText: string) => marked(blogText, { renderer });
-const wrap = (content: string) => `<div>${content}</div>`;
 
 const applyTemplate = (componentName: string) => content =>
   blogItemTemplate
@@ -41,19 +40,20 @@ const applyOverviewTemplate = (
   date: string,
   title: string,
   summary: string,
-  componentName: string
+  componentName: string,
+  path: string
 ) =>
   template
     .replace('{{date}}', date)
     .replace('{{title}}', title)
     .replace('{{summary}}', summary)
-    .replace('{{ComponentName}}', componentName);
+    .replace('{{ComponentName}}', componentName)
+    .replace('{{path}}', path);
 
 const getBlog = (componentName: string) =>
   compose(
     prettier.format,
     applyTemplate(componentName),
-    wrap,
     parseBlogItem,
     readFile
   );
@@ -63,12 +63,14 @@ const blogs = blogFiles.map(bf => {
   const blogConfigFileName = blogFileName + '.json';
   const blogConfigFile = JSON.parse(readFile(blogConfigFileName));
   const blogItemOverview = readFile(BLOG_ITEM_OVERVIEW_PATH);
+  const blogPath = blogConfigFile.path;
   const contentOverview = applyOverviewTemplate(
     blogItemOverview,
     format(blogConfigFile.date, 'DD MMM YYYY'),
     blogConfigFile.title,
     blogConfigFile.summary,
-    blogConfigFile.componentName + 'Overview'
+    blogConfigFile.componentName + 'Overview',
+    blogPath
   );
 
   return {

@@ -17,3 +17,11 @@
   font-size: 18px;
   margin-top: 2rem;
 }
+
+a:hover h1 {
+  text-decoration: underline;
+}
+
+.link {
+  text-decoration: none;
+}
