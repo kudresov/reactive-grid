@@ -6,3 +6,7 @@ I will assume that you know why it’s a good idea store your configuration in e
 So the solution we will be striving to is to have all configuration for both server and client in environmental variables.
 
 ## Sub section two
+Some info here
+```js
+console.log('hi');
+```
