@@ -5,11 +5,18 @@ import { compose } from 'ramda';
 import * as prettier from 'prettier';
 import { format } from 'date-fns';
 
-const BLOG_FOLDER_PATH = './blog';
+const BLOG_TEMPLATE_FOLDER_PATH = './blog';
 const BLOG_OUTPUT_FOLDER_PATH = './src/client/components/blog/';
 const BLOG_ITEM_OVERVIEW_PATH = '/blog-item-overview.template';
+const BLOG_ITEM_LOADABLE_PATH = '/blog-item-loadable.template';
 
 const renderer = new marked.Renderer();
+
+const readFile = filePath =>
+  fs.readFileSync(`${BLOG_TEMPLATE_FOLDER_PATH}/${filePath}`).toString('utf-8');
+
+const blogItemOverviewTemplate = readFile(BLOG_ITEM_OVERVIEW_PATH);
+const blogItemLoadableTemplate = readFile(BLOG_ITEM_LOADABLE_PATH);
 
 renderer.heading = (text, level) =>
   `<h1 className={styles.h${level}}>${text}</h1>`;
@@ -30,14 +37,12 @@ const filterMarkdown = (filePaths: string[]) =>
 const files = fs.readdirSync('./blog');
 const blogFiles = filterMarkdown(files);
 
-const readFile = filePath =>
-  fs.readFileSync(`${BLOG_FOLDER_PATH}/${filePath}`).toString('utf-8');
 const parseBlogItem = (blogText: string) => marked(blogText, { renderer });
 
 const applyTemplate = (componentName: string) => content =>
   blogItemTemplate
-    .replace('{{content}}', content)
-    .replace('{{ComponentName}}', componentName);
+    .replace(/{{content}}/g, content)
+    .replace(/{{ComponentName}}/g, componentName);
 
 const applyOverviewTemplate = (
   template: string,
@@ -48,11 +53,20 @@ const applyOverviewTemplate = (
   path: string
 ) =>
   template
-    .replace('{{date}}', date)
-    .replace('{{title}}', title)
-    .replace('{{summary}}', summary)
-    .replace('{{ComponentName}}', componentName)
-    .replace('{{path}}', path);
+    .replace(/{{date}}/g, date)
+    .replace(/{{title}}/g, title)
+    .replace(/{{summary}}/g, summary)
+    .replace(/{{ComponentName}}/g, componentName)
+    .replace(/{{path}}/g, path);
+
+const applyLoadableTemplate = (
+  template: string,
+  name: string,
+  componentName: string
+) =>
+  template
+    .replace(/{{fileName}}/g, name)
+    .replace(/{{componentName}}/g, componentName);
 
 const getBlog = (componentName: string) =>
   compose(
@@ -66,20 +80,25 @@ const blogs = blogFiles.map(bf => {
   const blogFileName = bf.split('.md')[0];
   const blogConfigFileName = blogFileName + '.json';
   const blogConfigFile = JSON.parse(readFile(blogConfigFileName));
-  const blogItemOverview = readFile(BLOG_ITEM_OVERVIEW_PATH);
   const blogPath = blogConfigFile.path;
   const contentOverview = applyOverviewTemplate(
-    blogItemOverview,
+    blogItemOverviewTemplate,
     format(blogConfigFile.date, 'DD MMM YYYY'),
     blogConfigFile.title,
     blogConfigFile.summary,
     blogConfigFile.componentName + 'Overview',
     blogPath
   );
+  const loadable = applyLoadableTemplate(
+    blogItemLoadableTemplate,
+    blogFileName,
+    blogConfigFile.componentName + 'Loadable'
+  );
 
   return {
     content: getBlog(blogConfigFile.componentName)(bf),
     contentOverview,
+    loadable,
     fileName: blogFileName
   };
 });
@@ -89,5 +108,9 @@ blogs.forEach(b => {
   fs.writeFileSync(
     BLOG_OUTPUT_FOLDER_PATH + b.fileName + '-overview.tsx',
     b.contentOverview
+  );
+  fs.writeFileSync(
+    BLOG_OUTPUT_FOLDER_PATH + b.fileName + '-loadable.tsx',
+    b.loadable
   );
 });

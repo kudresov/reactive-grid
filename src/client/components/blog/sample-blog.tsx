@@ -3,7 +3,7 @@ const styles = require("./blog-item.css");
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { tomorrowNight } from "react-syntax-highlighter/styles/hljs";
 
-export const SampleBlog: React.SFC = () => (
+const SampleBlog: React.SFC = () => (
   <div className={styles.container}>
     <div className={styles.blogContainer}>
       <h1 className={styles.h1}>Introduction</h1>
@@ -35,3 +35,5 @@ export const SampleBlog: React.SFC = () => (
     </div>
   </div>
 );
+
+export default SampleBlog;

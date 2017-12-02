@@ -13,9 +13,12 @@
     "start:server-prod": "node dist/server/index.js",
     "start": "yarn run start:client & yarn run start:server",
     "postinstall": "yarn run build:server && yarn run build:client",
-    "get-schema": "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
-    "generate-types": "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts",
-    "storybook": "start-storybook -s ./src/client -p 9001  -c .storybook"
+    "get-schema":
+      "apollo-codegen introspect-schema https://api.github.com/graphql --output schema.json --header \"Authorization: Bearer 1e37b0e75fea9218be6fbff4cf46db989065062f\"",
+    "generate-types":
+      "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts",
+    "storybook": "start-storybook -s ./src/client -p 9001  -c .storybook",
+    "blog": "ts-node ./scripts/generateBlogPosts.ts"
   },
   "author": "Vitalij Kudresov",
   "license": "ISC",

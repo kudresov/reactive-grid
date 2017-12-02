@@ -3,7 +3,7 @@ import { SFC } from 'react';
 import { Link } from 'react-router-dom';
 const styles = require('./blog-item-overview.css');
 
-export const SampleBlogOverview: SFC = () => (
+const SampleBlogOverview: SFC = () => (
   <Link className={styles.link} to="blog/sample-blog">
     <div>
       <p className={styles.date}>08 Nov 2017</p>
@@ -12,3 +12,5 @@ export const SampleBlogOverview: SFC = () => (
     </div>
   </Link>
 );
+
+export default SampleBlogOverview;
