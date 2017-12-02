@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import SampleBlog from './sample-blog';
+import SampleBlog from './sample-blog/sample-blog';
 import StoryRouter from 'storybook-router';
 import { BlogItems } from './blog-items';
-import SampleBlogOverview from './sample-blog-overview';
+import SampleBlogOverview from './sample-blog/sample-blog-overview';
 
 storiesOf('Blog Items', module).add('Default', () => (
   <BlogItems>

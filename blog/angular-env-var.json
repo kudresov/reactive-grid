@@ -1,0 +1,8 @@
+{
+  "componentName": "AngularEnvVar",
+  "title": "A better way to inject environmental variables in angular",
+  "date": "2015-09-19",
+  "path": "blog/a-better-way-to-inject-environmental-variables-in-angular",
+  "summary":
+    "Have you experience problems passing your enviromental variable from you express server to your angular client? I will go over few approaches and outline their advantages and disadvantages"
+}

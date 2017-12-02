@@ -6,7 +6,7 @@ import * as prettier from 'prettier';
 import { format } from 'date-fns';
 
 const BLOG_TEMPLATE_FOLDER_PATH = './blog';
-const BLOG_OUTPUT_FOLDER_PATH = './src/client/components/blog/';
+const BLOG_OUTPUT_FOLDER_PATH = './src/client/components/blog';
 const BLOG_ITEM_OVERVIEW_PATH = '/blog-item-overview.template';
 const BLOG_ITEM_LOADABLE_PATH = '/blog-item-loadable.template';
 
@@ -23,9 +23,11 @@ renderer.heading = (text, level) =>
 
 renderer.paragraph = text => `<p className={styles.p}>${text}</p>`;
 renderer.code = (code, lang) =>
-  `<SyntaxHighlighter language='${lang}' style={tomorrowNight}>${
-    code
-  }</SyntaxHighlighter>`;
+  `<SyntaxHighlighter language='${
+    lang
+  }' style={tomorrowNight}>{${JSON.stringify(code)}}</SyntaxHighlighter>`;
+
+renderer.image = (href: string) => `<img src="${href}"/>`;
 
 const blogItemTemplate = fs
   .readFileSync('./blog/blog-item.template')
@@ -104,13 +106,17 @@ const blogs = blogFiles.map(bf => {
 });
 
 blogs.forEach(b => {
-  fs.writeFileSync(BLOG_OUTPUT_FOLDER_PATH + b.fileName + '.tsx', b.content);
-  fs.writeFileSync(
-    BLOG_OUTPUT_FOLDER_PATH + b.fileName + '-overview.tsx',
-    b.contentOverview
-  );
-  fs.writeFileSync(
-    BLOG_OUTPUT_FOLDER_PATH + b.fileName + '-loadable.tsx',
-    b.loadable
-  );
+  const filesPath = `${BLOG_OUTPUT_FOLDER_PATH}/${b.fileName}`;
+
+  if (!fs.existsSync(filesPath)) {
+    fs.mkdirSync(filesPath);
+  }
+
+  const componentPath = `${filesPath}/${b.fileName}.tsx`;
+  const overviewComponentPath = `${filesPath}/${b.fileName}-overview.tsx`;
+  const loadablePath = `${filesPath}/${b.fileName}-loadable.tsx`;
+
+  fs.writeFileSync(componentPath, b.content);
+  fs.writeFileSync(overviewComponentPath, b.contentOverview);
+  fs.writeFileSync(loadablePath, b.loadable);
 });

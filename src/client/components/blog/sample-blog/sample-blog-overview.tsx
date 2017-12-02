@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SFC } from 'react';
 import { Link } from 'react-router-dom';
-const styles = require('./blog-item-overview.css');
+const styles = require('../blog-item-overview.css');
 
 const SampleBlogOverview: SFC = () => (
   <Link className={styles.link} to="blog/sample-blog">

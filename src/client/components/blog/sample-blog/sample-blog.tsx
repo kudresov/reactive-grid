@@ -1,7 +1,12 @@
 import * as React from "react";
-const styles = require("./blog-item.css");
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { tomorrowNight } from "react-syntax-highlighter/styles/hljs";
+const styles = require("../blog-item.css");
+import SyntaxHighlighter, {
+  registerLanguage
+} from "react-syntax-highlighter/light";
+import js from "react-syntax-highlighter/languages/hljs/javascript";
+import tomorrowNight from "react-syntax-highlighter/styles/hljs/tomorrow-night";
+
+registerLanguage("javascript", js);
 
 const SampleBlog: React.SFC = () => (
   <div className={styles.container}>
@@ -30,7 +35,7 @@ const SampleBlog: React.SFC = () => (
       <h1 className={styles.h2}>Sub section two</h1>
       <p className={styles.p}>Some info here</p>
       <SyntaxHighlighter language="js" style={tomorrowNight}>
-        console.log('hi');
+        {"console.log('hi');"}
       </SyntaxHighlighter>
     </div>
   </div>

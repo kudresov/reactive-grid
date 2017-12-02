@@ -5,7 +5,9 @@ const routes = {
   projects: '/projects',
   github: '/github',
   blogTestingReselect: '/testing-reselect',
-  sampleBlog: '/blog/sample-blog'
+  sampleBlog: '/blog/sample-blog',
+  angularEnvBlog:
+    '/blog/a-better-way-to-inject-environmental-variables-in-angular'
 };
 
 export default routes;
