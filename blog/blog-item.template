@@ -6,7 +6,7 @@ import tomorrowNight from "react-syntax-highlighter/styles/hljs/tomorrow-night";
 
 registerLanguage('javascript', js);
 
-const {{ComponentName}}: React.SFC = () => (
+const {{componentName}}: React.SFC = () => (
   <div className={styles.container}>
     <div className={styles.blogContainer}>
     {{content}}
@@ -14,4 +14,4 @@ const {{ComponentName}}: React.SFC = () => (
   </div>
 );
 
-export default {{ComponentName}};
+export default {{componentName}};

@@ -18,7 +18,7 @@
     "generate-types":
       "apollo-codegen generate **/*.tsx --schema schema.json --target typescript --output schema.ts",
     "storybook": "start-storybook -s ./src/client -p 9001  -c .storybook",
-    "blog": "ts-node ./scripts/generateBlogPosts.ts"
+    "blog": "ts-node ./scripts/generate-blog-posts.ts"
   },
   "author": "Vitalij Kudresov",
   "license": "ISC",
