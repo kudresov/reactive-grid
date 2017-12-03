@@ -10,6 +10,12 @@ renderer.code = (code, lang) =>
     lang
   }' style={tomorrowNight}>{${JSON.stringify(code)}}</SyntaxHighlighter>`;
 
-renderer.image = (href: string) => `<img src="${href}"/>`;
+renderer.image = (href: string) =>
+  `<img className={styles.img} src="${href}"/>`;
+
+renderer.link = (href: string, title: string, text: string) =>
+  `<a className={styles.a} href={href}>${text}</a>`;
+
+renderer.strong = text => `<b className={styles.b}>${text}</b>`;
 
 export const toMarkdown = (text: string) => marked(text, { renderer });

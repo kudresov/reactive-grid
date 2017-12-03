@@ -18,27 +18,30 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         If you are developing something which is slightly more complicated than
         ‘hello world’ you should have multiple environments like:{" "}
-        <strong>develop</strong>, <strong>staging</strong>,
-        <strong>production</strong>. Depending on the environment you would use
-        different resources (database, api, etc). These resources would be then
-        injected via environmental variables. It’s a fairly common approach on
-        most of today&#39;s cloud platforms. It’s also fairly easy to grab env
-        variables on a server side, but how do you get them in you clientside
-        JS?
+        <b className={styles.b}>develop</b>, <b className={styles.b}>staging</b>,
+        <b className={styles.b}>production</b>. Depending on the environment you
+        would use different resources (database, api, etc). These resources
+        would be then injected via environmental variables. It’s a fairly common
+        approach on most of today&#39;s cloud platforms. It’s also fairly easy
+        to grab env variables on a server side, but how do you get them in you
+        clientside JS?
       </p>
       <p className={styles.p}>
         Those env variables are so close and so far at the same time..
       </p>
       <p className={styles.p}>
-        <img src="https://cdn-images-1.medium.com/max/2000/1*8lYq6crpl26UkaePeUtpyQ.gif" />
+        <img
+          className={styles.img}
+          src="https://cdn-images-1.medium.com/max/2000/1*8lYq6crpl26UkaePeUtpyQ.gif"
+        />
       </p>
       <h1 className={styles.h2}>Background</h1>
       <p className={styles.p}>
         I will assume that you know why it’s a good idea store your
         configuration in env variables. If you don’t I recommend to read 12
         factor app manifesto
-        <a href="http://12factor.net/config">http://12factor.net/config</a>{" "}
-        hopefully it has enough information to convince you.
+        <a className={styles.a}>http://12factor.net/config></a> hopefully it has
+        enough information to convince you.
       </p>
       <p className={styles.p}>
         So the solution we will be striving to is to have all configuration for
@@ -62,13 +65,13 @@ const AngularEnvVar: React.SFC = () => (
         }
       </SyntaxHighlighter>
       <p className={styles.p}>
-        <strong>Advantages</strong>
+        <b className={styles.b}>Advantages</b>
       </p>
       <ul>
         <li>Simple</li>
       </ul>
       <p className={styles.p}>
-        <strong>Disadvantages</strong>
+        <b className={styles.b}>Disadvantages</b>
       </p>
       <ul>
         <li>
@@ -89,7 +92,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Summary</strong>
+        <b className={styles.b}>Summary</b>
       </p>
       <p className={styles.p}>
         Not a scalable solution, only use for ‘toy code’, never use it for
@@ -97,7 +100,10 @@ const AngularEnvVar: React.SFC = () => (
         production!
       </p>
       <p className={styles.p}>
-        <img src="https://cdn-images-1.medium.com/max/2000/1*PQVT5IB3k0Xsh8qZTi445A.gif" />
+        <img
+          className={styles.img}
+          src="https://cdn-images-1.medium.com/max/2000/1*PQVT5IB3k0Xsh8qZTi445A.gif"
+        />
       </p>
       <h1 className={styles.h3}>
         Option 2: Get configuration values from the server via REST call
@@ -105,9 +111,7 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         You create and endpoint on your server for example:
         <em>
-          <a href="https://www.mywebsite.com/config">
-            https://www.mywebsite.com/config
-          </a>{" "}
+          <a className={styles.a}>https://www.mywebsite.com/config></a>{" "}
         </em>which returns you a configuration for your site and when your app
         loads, first thing you do is make a GET reequest to
         <em>/config</em>
@@ -134,7 +138,7 @@ const AngularEnvVar: React.SFC = () => (
         }
       </SyntaxHighlighter>
       <p className={styles.p}>
-        <strong>Advantages</strong>
+        <b className={styles.b}>Advantages</b>
       </p>
       <ul>
         <li>
@@ -145,7 +149,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Disadvantages</strong>
+        <b className={styles.b}>Disadvantages</b>
       </p>
       <ul>
         <li>
@@ -163,7 +167,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Summary</strong>
+        <b className={styles.b}>Summary</b>
       </p>
       <p className={styles.p}>
         Main disadvantage is that your app is delayed and these days users are
@@ -207,7 +211,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ol>
       <p className={styles.p}>
-        <strong>Advantage</strong>
+        <b className={styles.b}>Advantage</b>
       </p>
       <ul>
         <li>
@@ -222,7 +226,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Disadvantage</strong>
+        <b className={styles.b}>Disadvantage</b>
       </p>
       <ul>
         <li>
@@ -232,7 +236,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Summary</strong>
+        <b className={styles.b}>Summary</b>
       </p>
       <p className={styles.p}>
         This approach only partially solves the problem and pushes some of it to
@@ -247,10 +251,10 @@ const AngularEnvVar: React.SFC = () => (
         stuff. So how about if we take similar approach and apply it for our
         Angular configuration service (which is just js file). So as{" "}
         <em>templating engine </em>I am going to use
-        <a href="https://github.com/ajwhite/gulp-ng-config">*gulp-ng-config</a>*
-        which does pretty much what we want - it generates key value angular
-        constant service from a JSON file, you can also override values from
-        JSON file with env variables.
+        <a className={styles.a}>*gulp-ng-config></a>* which does pretty much
+        what we want - it generates key value angular constant service from a
+        JSON file, you can also override values from JSON file with env
+        variables.
       </p>
       <p className={styles.p}>
         So here is how the process would work when you deploy your code to a
@@ -276,10 +280,10 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         I have created a sample angular/node project to illustrate how all bits
         fit together, you can check it on my
-        <a href="https://github.com/kudresov/angular-config-vars">GitHub</a>.
+        <a className={styles.a}>GitHub></a>.
       </p>
       <p className={styles.p}>
-        <strong>Advantage</strong>
+        <b className={styles.b}>Advantage</b>
       </p>
       <ul>
         <li>
@@ -299,7 +303,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Disadvantages</strong>
+        <b className={styles.b}>Disadvantages</b>
       </p>
       <ul>
         <li>
@@ -309,7 +313,7 @@ const AngularEnvVar: React.SFC = () => (
         </li>
       </ul>
       <p className={styles.p}>
-        <strong>Summary</strong>
+        <b className={styles.b}>Summary</b>
       </p>
       <p className={styles.p}>
         It seems to be the cleanest approach at the moment.
@@ -350,7 +354,10 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         I hope this article will help to avoid a lot of pain in the deployment
         process and maybe even give you some dev superpowers!
-        <img src="https://cdn-images-1.medium.com/max/2000/1*SnsghO5h6Jqs0r96qewxBQ.gif" />
+        <img
+          className={styles.img}
+          src="https://cdn-images-1.medium.com/max/2000/1*SnsghO5h6Jqs0r96qewxBQ.gif"
+        />
       </p>
     </div>
   </div>

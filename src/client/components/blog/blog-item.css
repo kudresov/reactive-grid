@@ -17,6 +17,10 @@
   margin-top: 2rem;
 }
 
+.b {
+  font-weight: bold;
+}
+
 .container {
   padding: 2rem 2rem;
   display: flex;
@@ -26,4 +30,13 @@
 
 .blogContainer {
   max-width: 45rem;
+}
+
+.img {
+  margin: auto;
+  display: block;
+}
+
+.a {
+  color: #e85d5d;
 }
