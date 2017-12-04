@@ -13,8 +13,9 @@
 
 .p {
   color: #222222;
-  line-height: 1.4rem;
-  margin-top: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+  margin-top: 1.8rem;
 }
 
 .b {
@@ -39,4 +40,14 @@
 
 .a {
   color: #e85d5d;
+}
+
+.a:visited {
+  color: #a84343;
+}
+
+.li {
+  list-style-type: disc;
+  margin-left: 2rem;
+  margin-top: 1.5rem;
 }

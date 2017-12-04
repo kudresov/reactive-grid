@@ -3,12 +3,7 @@
 ## Problem
 
 If you are developing something which is slightly more complicated than ‘hello
-world’ you should have multiple environments like: **develop**, **staging**,
-**production**. Depending on the environment you would use different resources
-(database, api, etc). These resources would be then injected via environmental
-variables. It’s a fairly common approach on most of today's cloud platforms.
-It’s also fairly easy to grab env variables on a server side, but how do you get
-them in you clientside JS?
+world’ you should have multiple environments like: **develop**, **staging**, **production**. Depending on the environment you would use different resources (database, api, etc). These resources would be then injected via environmental variables. It’s a fairly common approach on most of today's cloud platforms. It’s also fairly easy to grab env variables on a server side, but how do you get them in you clientside JS?
 
 Those env variables are so close and so far at the same time..
 
@@ -16,9 +11,7 @@ Those env variables are so close and so far at the same time..
 
 ## Background
 
-I will assume that you know why it’s a good idea store your configuration in env
-variables. If you don’t I recommend to read 12 factor app manifesto
-[http://12factor.net/config](http://12factor.net/config) hopefully it has enough
+I will assume that you know why it’s a good idea store your configuration in env variables. If you don’t I recommend to read [12 factor app manifesto](http://12factor.net/config) hopefully it has enough
 information to convince you.
 
 So the solution we will be striving to is to have all configuration for both
@@ -49,10 +42,7 @@ angular
 **Disadvantages**
 
 * You have leaked potentially sensitive info into your repo
-
-* When testing other environments you have to manually comment out current value
-  and replace them with test ones.
-
+* When testing other environments you have to manually comment out current value and replace them with test ones.
 * You can’t support multiple environments with this setup
 
 **Summary**
@@ -109,27 +99,20 @@ angular code would be something like:
 **Advantages**
 
 * You can truly access server env variables
-
 * It’s fairly simple
 
 **Disadvantages**
 
-* Your app is delayed by at least as much the api call to get the configuration
-  value.
-
-* Another issue I have tried to highlight here is hardcoding number of
-  environments. This will limit you to only 3 envs and you will need to do a
-  code change when you need a new one, not good!
+* Your app is delayed by at least as much the api call to get the configuration value.
+* Another issue I have tried to highlight here is hardcoding number of environments. This will limit you to only 3 envs and you will need to do a code change when you need a new one, not good!
 
 **Summary**
 
-Main disadvantage is that your app is delayed and these days users are very
-fussy about their load time, so let’s check some solutions which avoid that.
+Main disadvantage is that your app is delayed and these days users are very fussy about their load time, so let’s check some solutions which avoid that.
 
 ### Option 3: Let your CI/CD inject correct configuration settings
 
-Using this approach CI before doing a deployment will generate a configuration
-dynamically based on where you about to deploy to.
+Using this approach CI before doing a deployment will generate a configuration dynamically based on where you about to deploy to.
 
 You could you use a gulp task for that, which would look something like this:
 
@@ -159,7 +142,6 @@ angular config. There are 2 main options:
 **Advantage**
 
 * There is no need to wait for your config to be loaded.
-
 * You don’t have to have your env vars in your repo.
 
 **Disadvantage**
@@ -174,13 +156,7 @@ This approach only partially solves the problem and pushes some of it to CI.
 
 ### Option 4: Generate your angular configuration on the server dynamically
 
-You have probably heard of server side template rendering, it is a way of
-dynamically injecting data into your html markup, pretty old school stuff. So
-how about if we take similar approach and apply it for our Angular configuration
-service (which is just js file). So as *templating engine *I am going to use
-[\*gulp-ng-config](https://github.com/ajwhite/gulp-ng-config)\* which does
-pretty much what we want - it generates key value angular constant service from
-a JSON file, you can also override values from JSON file with env variables.
+You have probably heard of server side template rendering, it is a way of dynamically injecting data into your html markup, pretty old school stuff. So how about if we take similar approach and apply it for our Angular configuration service (which is just js file). So as *templating engine *I am going to use [\*gulp-ng-config](https://github.com/ajwhite/gulp-ng-config)\* which does pretty much what we want - it generates key value angular constant service from a JSON file, you can also override values from JSON file with env variables.
 
 So here is how the process would work when you deploy your code to a server:
 
@@ -192,23 +168,17 @@ So here is how the process would work when you deploy your code to a server:
 3. Your index.html will load constant service and use those variables whenever
    you load your page for the first time
 
-I have created a sample angular/node project to illustrate how all bits fit
-together, you can check it on my
-[GitHub](https://github.com/kudresov/angular-config-vars).
+I have created a sample angular/node project to illustrate how all bits fit together, you can check it on my [GitHub](https://github.com/kudresov/angular-config-vars).
 
 **Advantage**
 
 * No sensitive info has leaked into your repo and you can open source it any day
-
-* All sensitive information is injected into the servers and you don’t need to
-  worry about managing it in multiple places
-
+* All sensitive information is injected into the servers and you don’t need to worry about managing it in multiple places
 * It’s a fairly simple solution
 
 **Disadvantages**
 
-* You have to include _gulp_ and *gulp-ng-config *in dependencies rather than
-  devDependencies (which I don’t personally think is a problem).
+* You have to include _gulp_ and *gulp-ng-config *in dependencies rather than devDependencies (which I don’t personally think is a problem).
 
 **Summary**
 
@@ -233,4 +203,4 @@ get access to this benefits:
 
 I hope this article will help to avoid a lot of pain in the deployment process
 and maybe even give you some dev superpowers!
-![foo](https://cdn-images-1.medium.com/max/2000/1*SnsghO5h6Jqs0r96qewxBQ.gif)
+![](https://cdn-images-1.medium.com/max/2000/1*SnsghO5h6Jqs0r96qewxBQ.gif)

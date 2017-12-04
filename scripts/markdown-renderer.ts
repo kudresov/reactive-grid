@@ -14,7 +14,9 @@ renderer.image = (href: string) =>
   `<img className={styles.img} src="${href}"/>`;
 
 renderer.link = (href: string, title: string, text: string) =>
-  `<a className={styles.a} href={href}>${text}</a>`;
+  `<a className={styles.a} href="${href}">${text}</a>`;
+
+renderer.listitem = (text: string) => `<li className={styles.li}>${text}</li>`;
 
 renderer.strong = text => `<b className={styles.b}>${text}</b>`;
 

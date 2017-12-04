@@ -18,7 +18,7 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         If you are developing something which is slightly more complicated than
         ‘hello world’ you should have multiple environments like:{" "}
-        <b className={styles.b}>develop</b>, <b className={styles.b}>staging</b>,
+        <b className={styles.b}>develop</b>, <b className={styles.b}>staging</b>,{" "}
         <b className={styles.b}>production</b>. Depending on the environment you
         would use different resources (database, api, etc). These resources
         would be then injected via environmental variables. It’s a fairly common
@@ -38,10 +38,11 @@ const AngularEnvVar: React.SFC = () => (
       <h1 className={styles.h2}>Background</h1>
       <p className={styles.p}>
         I will assume that you know why it’s a good idea store your
-        configuration in env variables. If you don’t I recommend to read 12
-        factor app manifesto
-        <a className={styles.a}>http://12factor.net/config></a> hopefully it has
-        enough information to convince you.
+        configuration in env variables. If you don’t I recommend to read{" "}
+        <a className={styles.a} href="http://12factor.net/config">
+          12 factor app manifesto
+        </a>{" "}
+        hopefully it has enough information to convince you.
       </p>
       <p className={styles.p}>
         So the solution we will be striving to is to have all configuration for
@@ -68,27 +69,21 @@ const AngularEnvVar: React.SFC = () => (
         <b className={styles.b}>Advantages</b>
       </p>
       <ul>
-        <li>Simple</li>
+        <li className={styles.li}>Simple</li>
       </ul>
       <p className={styles.p}>
         <b className={styles.b}>Disadvantages</b>
       </p>
       <ul>
-        <li>
-          <p className={styles.p}>
-            You have leaked potentially sensitive info into your repo
-          </p>
+        <li className={styles.li}>
+          You have leaked potentially sensitive info into your repo
         </li>
-        <li>
-          <p className={styles.p}>
-            When testing other environments you have to manually comment out
-            current value and replace them with test ones.
-          </p>
+        <li className={styles.li}>
+          When testing other environments you have to manually comment out
+          current value and replace them with test ones.
         </li>
-        <li>
-          <p className={styles.p}>
-            You can’t support multiple environments with this setup
-          </p>
+        <li className={styles.li}>
+          You can’t support multiple environments with this setup
         </li>
       </ul>
       <p className={styles.p}>
@@ -111,7 +106,9 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         You create and endpoint on your server for example:
         <em>
-          <a className={styles.a}>https://www.mywebsite.com/config></a>{" "}
+          <a className={styles.a} href="https://www.mywebsite.com/config">
+            https://www.mywebsite.com/config
+          </a>{" "}
         </em>which returns you a configuration for your site and when your app
         loads, first thing you do is make a GET reequest to
         <em>/config</em>
@@ -141,29 +138,21 @@ const AngularEnvVar: React.SFC = () => (
         <b className={styles.b}>Advantages</b>
       </p>
       <ul>
-        <li>
-          <p className={styles.p}>You can truly access server env variables</p>
-        </li>
-        <li>
-          <p className={styles.p}>It’s fairly simple</p>
-        </li>
+        <li className={styles.li}>You can truly access server env variables</li>
+        <li className={styles.li}>It’s fairly simple</li>
       </ul>
       <p className={styles.p}>
         <b className={styles.b}>Disadvantages</b>
       </p>
       <ul>
-        <li>
-          <p className={styles.p}>
-            Your app is delayed by at least as much the api call to get the
-            configuration value.
-          </p>
+        <li className={styles.li}>
+          Your app is delayed by at least as much the api call to get the
+          configuration value.
         </li>
-        <li>
-          <p className={styles.p}>
-            Another issue I have tried to highlight here is hardcoding number of
-            environments. This will limit you to only 3 envs and you will need
-            to do a code change when you need a new one, not good!
-          </p>
+        <li className={styles.li}>
+          Another issue I have tried to highlight here is hardcoding number of
+          environments. This will limit you to only 3 envs and you will need to
+          do a code change when you need a new one, not good!
         </li>
       </ul>
       <p className={styles.p}>
@@ -195,14 +184,14 @@ const AngularEnvVar: React.SFC = () => (
         injects into angular config. There are 2 main options:
       </p>
       <ol>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             Have a set of configuration files which are checked in into your
             repo and can be accessed by CI during deployment. This brings the
             same problems as solutions 1.
           </p>
         </li>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             Inject those values into environmental variables of your CI, which
             is arguably a better solution. The new problem you have is managing
@@ -214,22 +203,18 @@ const AngularEnvVar: React.SFC = () => (
         <b className={styles.b}>Advantage</b>
       </p>
       <ul>
-        <li>
-          <p className={styles.p}>
-            There is no need to wait for your config to be loaded.
-          </p>
+        <li className={styles.li}>
+          There is no need to wait for your config to be loaded.
         </li>
-        <li>
-          <p className={styles.p}>
-            You don’t have to have your env vars in your repo.
-          </p>
+        <li className={styles.li}>
+          You don’t have to have your env vars in your repo.
         </li>
       </ul>
       <p className={styles.p}>
         <b className={styles.b}>Disadvantage</b>
       </p>
       <ul>
-        <li>
+        <li className={styles.li}>
           You now have your env variables in 2 places CI and your deployment
           server. Also it limits you in a way that now you always have to go via
           CI to do a deployment.
@@ -250,27 +235,31 @@ const AngularEnvVar: React.SFC = () => (
         of dynamically injecting data into your html markup, pretty old school
         stuff. So how about if we take similar approach and apply it for our
         Angular configuration service (which is just js file). So as{" "}
-        <em>templating engine </em>I am going to use
-        <a className={styles.a}>*gulp-ng-config></a>* which does pretty much
-        what we want - it generates key value angular constant service from a
-        JSON file, you can also override values from JSON file with env
-        variables.
+        <em>templating engine </em>I am going to use{" "}
+        <a
+          className={styles.a}
+          href="https://github.com/ajwhite/gulp-ng-config"
+        >
+          *gulp-ng-config
+        </a>* which does pretty much what we want - it generates key value
+        angular constant service from a JSON file, you can also override values
+        from JSON file with env variables.
       </p>
       <p className={styles.p}>
         So here is how the process would work when you deploy your code to a
         server:
       </p>
       <ol>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             Server will generate angular const service with key values based on
             your env variables.
           </p>
         </li>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>It will kick of node server</p>
         </li>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             Your index.html will load constant service and use those variables
             whenever you load your page for the first time
@@ -279,34 +268,33 @@ const AngularEnvVar: React.SFC = () => (
       </ol>
       <p className={styles.p}>
         I have created a sample angular/node project to illustrate how all bits
-        fit together, you can check it on my
-        <a className={styles.a}>GitHub></a>.
+        fit together, you can check it on my{" "}
+        <a
+          className={styles.a}
+          href="https://github.com/kudresov/angular-config-vars"
+        >
+          GitHub
+        </a>.
       </p>
       <p className={styles.p}>
         <b className={styles.b}>Advantage</b>
       </p>
       <ul>
-        <li>
-          <p className={styles.p}>
-            No sensitive info has leaked into your repo and you can open source
-            it any day
-          </p>
+        <li className={styles.li}>
+          No sensitive info has leaked into your repo and you can open source it
+          any day
         </li>
-        <li>
-          <p className={styles.p}>
-            All sensitive information is injected into the servers and you don’t
-            need to worry about managing it in multiple places
-          </p>
+        <li className={styles.li}>
+          All sensitive information is injected into the servers and you don’t
+          need to worry about managing it in multiple places
         </li>
-        <li>
-          <p className={styles.p}>It’s a fairly simple solution</p>
-        </li>
+        <li className={styles.li}>It’s a fairly simple solution</li>
       </ul>
       <p className={styles.p}>
         <b className={styles.b}>Disadvantages</b>
       </p>
       <ul>
-        <li>
+        <li className={styles.li}>
           You have to include <em>gulp</em> and <em>gulp-ng-config </em>in
           dependencies rather than devDependencies (which I don’t personally
           think is a problem).
@@ -323,27 +311,27 @@ const AngularEnvVar: React.SFC = () => (
         variables you get access to this benefits:
       </p>
       <ol>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             If a developer wants a separate environment to test his code, it
             should be as easy as cloning existing one and changing endpoints to
             other servers (if required)
           </p>
         </li>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             You can fairly easily migrate between hosting platforms as you don’t
             rely on a complex setup and just need a bunch of environmental
             variables to be injected into your servers.
           </p>
         </li>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             You can have fine grained control of who sees production
             configuration.
           </p>
         </li>
-        <li>
+        <li className={styles.li}>
           <p className={styles.p}>
             You can change your endpoints on your servers without any code
             change
