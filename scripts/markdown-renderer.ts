@@ -8,7 +8,9 @@ renderer.paragraph = text => `<p className={styles.p}>${text}</p>`;
 renderer.code = (code, lang) =>
   `<SyntaxHighlighter language='${
     lang
-  }' style={tomorrowNight}>{${JSON.stringify(code)}}</SyntaxHighlighter>`;
+  }' style={codeTheme} className={styles.code}>{${JSON.stringify(
+    code
+  )}}</SyntaxHighlighter>`;
 
 renderer.image = (href: string) =>
   `<img className={styles.img} src="${href}"/>`;

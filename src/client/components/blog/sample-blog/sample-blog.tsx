@@ -4,7 +4,7 @@ import SyntaxHighlighter, {
   registerLanguage
 } from "react-syntax-highlighter/light";
 import js from "react-syntax-highlighter/languages/hljs/javascript";
-import tomorrowNight from "react-syntax-highlighter/styles/hljs/tomorrow-night";
+import codeTheme from "react-syntax-highlighter/styles/hljs/hybrid";
 
 registerLanguage("javascript", js);
 
@@ -32,7 +32,11 @@ const SampleBlog: React.SFC = () => (
       </p>
       <h1 className={styles.h2}>Sub section two</h1>
       <p className={styles.p}>Some info here</p>
-      <SyntaxHighlighter language="js" style={tomorrowNight}>
+      <SyntaxHighlighter
+        language="js"
+        style={codeTheme}
+        className={styles.code}
+      >
         {"console.log('hi');"}
       </SyntaxHighlighter>
     </div>

@@ -4,7 +4,7 @@ import SyntaxHighlighter, {
   registerLanguage
 } from "react-syntax-highlighter/light";
 import js from "react-syntax-highlighter/languages/hljs/javascript";
-import tomorrowNight from "react-syntax-highlighter/styles/hljs/tomorrow-night";
+import codeTheme from "react-syntax-highlighter/styles/hljs/hybrid";
 
 registerLanguage("javascript", js);
 
@@ -60,7 +60,11 @@ const AngularEnvVar: React.SFC = () => (
         other information into your angular app. To get some separation of
         concerns you could even create a constant service, like below:
       </p>
-      <SyntaxHighlighter language="js" style={tomorrowNight}>
+      <SyntaxHighlighter
+        language="js"
+        style={codeTheme}
+        className={styles.code}
+      >
         {
           "angular\n  .module('yourApp')\n  .constant('apiEndpoint', 'https://api.test.com/messages')\n  .constant('apiEndpointKey', '123456789987654321');"
         }
@@ -120,7 +124,11 @@ const AngularEnvVar: React.SFC = () => (
       <p className={styles.p}>
         You server would probably have something like this:
       </p>
-      <SyntaxHighlighter language="js" style={tomorrowNight}>
+      <SyntaxHighlighter
+        language="js"
+        style={codeTheme}
+        className={styles.code}
+      >
         {
           "var env = process.env.NODE_ENV || 'develop';\n\napp.get('/config', function(req, res) {\n  if (env === 'develop') {\n    res.send(developConfig);\n  } else if (env === 'staging') {\n    res.send(stagingConfig);\n  } else if (env === 'prod') {\n    res.send(prodConfig);\n  }\n});"
         }
@@ -129,7 +137,11 @@ const AngularEnvVar: React.SFC = () => (
         On your client side you would request it as soon as your app start. So
         your angular code would be something like:
       </p>
-      <SyntaxHighlighter language="js" style={tomorrowNight}>
+      <SyntaxHighlighter
+        language="js"
+        style={codeTheme}
+        className={styles.code}
+      >
         {
           "(function() {\n  'use strict';\n\n  angular.module('myApp').controller('MainController', MainController);\n\n  function MainController($http) {\n    $http\n      .get('/config')\n      .then(saveConfig)\n      .catch(handleError);\n  }\n})();"
         }
@@ -174,7 +186,11 @@ const AngularEnvVar: React.SFC = () => (
         You could you use a gulp task for that, which would look something like
         this:
       </p>
-      <SyntaxHighlighter language="js" style={tomorrowNight}>
+      <SyntaxHighlighter
+        language="js"
+        style={codeTheme}
+        className={styles.code}
+      >
         {
           "var gulp = require('gulp');\nvar gulpNgConfig = require('gulp-ng-config');\n\ngulp.task('config', function() {\n  gulp\n    .src('config.json')\n    .pipe(gulpNgConfig('myApp'))\n    .pipe(gulp.dest('app/scripts'));\n});"
         }
