@@ -83,15 +83,13 @@ const getRepos = (query: GetLastReposQuery): { name: string }[] => {
 
 const GitHubContainer: React.SFC<
   OwnProps & GQLProps & Props & DispatchProps
-> = props => {
-  return (
-    <GitHubSection
-      {...props}
-      title="Github Repos"
-      imgSrc="../../assets/repo.svg"
-    />
-  );
-};
+> = props => (
+  <GitHubSection
+    {...props}
+    title="Github Repos"
+    imgSrc="../../assets/repo.svg"
+  />
+);
 
 const repos = graphql<
   GetLastReposQuery,

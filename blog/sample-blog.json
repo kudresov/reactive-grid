@@ -1,0 +1,8 @@
+{
+  "componentName": "SampleBlog",
+  "title": "Sample Blog Title",
+  "date": "2017-11-08",
+  "path": "blog/sample-blog",
+  "summary":
+    "If you are developing something which is slightly more complicated than ‘hello world’ you should have multiple environments like: develop, staging, production. Depending on the environment you would use different resource"
+}

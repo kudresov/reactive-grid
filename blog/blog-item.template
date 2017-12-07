@@ -1,0 +1,17 @@
+import * as React from 'react';
+const styles = require('../blog-item.css');
+import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light"
+import js from 'react-syntax-highlighter/languages/hljs/javascript';
+import codeTheme from "react-syntax-highlighter/styles/hljs/hybrid";
+
+registerLanguage('javascript', js);
+
+const {{componentName}}: React.SFC = () => (
+  <div className={styles.container}>
+    <div className={styles.blogContainer}>
+    {{content}}
+    </div>
+  </div>
+);
+
+export default {{componentName}};

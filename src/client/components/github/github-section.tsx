@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Repo } from '../../../typings';
-import Loader from '../loader/loader';
+import DotsLoader from '../dots-loader/dots-loader';
+import { SFC } from 'react';
 
 const styles = require('./github-section.css');
 
@@ -18,7 +19,7 @@ interface OwnProps {
   readonly imgSrc: string;
 }
 
-const GitHubSection: React.SFC<Props & OwnProps> = ({
+const GitHubSection: SFC<Props & OwnProps> = ({
   loading,
   repos,
   hasNext,
@@ -27,38 +28,36 @@ const GitHubSection: React.SFC<Props & OwnProps> = ({
   getPrevious,
   title,
   imgSrc
-}) => {
-  return (
-    <div className={styles.container}>
-      <div className={styles.headerContainer}>
-        <img className={styles.icon} src={imgSrc} />
-        <h2 className={styles.header}>{title}</h2>
-      </div>
-      <div className={styles.listContainer}>
-        {loading ? (
-          <Loader />
-        ) : (
-          <ul className={styles.list}>
-            {repos.map(n => <li key={n.name}>{n.name}</li>)}
-          </ul>
-        )}
-      </div>
-
-      <a
-        className={hasPrevious ? styles.link : styles.linkDisabled}
-        onClick={getPrevious}
-      >
-        newer
-      </a>
-      <span className={styles.separator}> | </span>
-      <a
-        className={hasNext ? styles.link : styles.linkDisabled}
-        onClick={getNext}
-      >
-        older
-      </a>
+}) => (
+  <div className={styles.container}>
+    <div className={styles.headerContainer}>
+      <img className={styles.icon} src={imgSrc} />
+      <h2 className={styles.header}>{title}</h2>
     </div>
-  );
-};
+    <div className={styles.listContainer}>
+      {loading ? (
+        <DotsLoader />
+      ) : (
+        <ul className={styles.list}>
+          {repos.map(n => <li key={n.name}>{n.name}</li>)}
+        </ul>
+      )}
+    </div>
+
+    <a
+      className={hasPrevious ? styles.link : styles.linkDisabled}
+      onClick={getPrevious}
+    >
+      newer
+    </a>
+    <span className={styles.separator}> | </span>
+    <a
+      className={hasNext ? styles.link : styles.linkDisabled}
+      onClick={getNext}
+    >
+      older
+    </a>
+  </div>
+);
 
 export default GitHubSection;
