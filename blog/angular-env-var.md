@@ -2,8 +2,7 @@
 
 ## Problem
 
-If you are developing something which is slightly more complicated than ‘hello
-world’ you should have multiple environments like: **develop**, **staging**, **production**. Depending on the environment you would use different resources (database, api, etc). These resources would be then injected via environmental variables. It’s a fairly common approach on most of today's cloud platforms. It’s also fairly easy to grab env variables on a server side, but how do you get them in you clientside JS?
+If you are developing something which is slightly more complicated than ‘hello world’ you should have multiple environments like: **develop**, **staging**, **production**. Depending on the environment you would use different resources (database, api, etc). These resources would be then injected via environmental variables. It’s a fairly common approach on most of today's cloud platforms. It’s also fairly easy to grab env variables on a server side, but how do you get them in you clientside JS?
 
 Those env variables are so close and so far at the same time..
 
@@ -11,22 +10,17 @@ Those env variables are so close and so far at the same time..
 
 ## Background
 
-I will assume that you know why it’s a good idea store your configuration in env variables. If you don’t I recommend to read [12 factor app manifesto](http://12factor.net/config) hopefully it has enough
-information to convince you.
+I will assume that you know why it’s a good idea store your configuration in env variables. If you don’t I recommend to read [12 factor app manifesto](http://12factor.net/config) hopefully it has enough information to convince you.
 
-So the solution we will be striving to is to have all configuration for both
-server and client in environmental variables.
+So the solution we will be striving to is to have all configuration for both server and client in environmental variables.
 
 ## Possible Solutions
 
-I have seen people achieving it in different ways, I will go first through all
-these solution and will explain what is the problem with each of them.
+I have seen people achieving it in different ways, I will go first through all these solution and will explain what is the problem with each of them.
 
 ### Option 1: Embedding config in you client
 
-This is a simplest solution. You just hardcode your api endpoints and other
-information into your angular app. To get some separation of concerns you could
-even create a constant service, like below:
+This is a simplest solution. You just hardcode your api endpoints and other information into your angular app. To get some separation of concerns you could even create a constant service, like below:
 
 ```js
 angular
@@ -47,20 +41,15 @@ angular
 
 **Summary**
 
-Not a scalable solution, only use for ‘toy code’, never use it for production
-systems. Unless you want to be that guy who screws up production!
+Not a scalable solution, only use for ‘toy code’, never use it for production systems. Unless you want to be that guy who screws up production!
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PQVT5IB3k0Xsh8qZTi445A.gif)
 
 ### Option 2: Get configuration values from the server via REST call
 
-You create and endpoint on your server for example:
-*https://www.mywebsite.com/config *which returns you a configuration for your
-site and when your app loads, first thing you do is make a GET reequest to
-_/config_
+You create and endpoint on your server for example: *https://www.mywebsite.com/config* which returns you a configuration for your site and when your app loads, first thing you do is make a GET reequest to _/config_
 
-This could work because your server has access to env variables and could return
-you different config set based on your env.
+This could work because your server has access to env variables and could return you different config set based on your env.
 
 You server would probably have something like this:
 
@@ -78,8 +67,7 @@ app.get('/config', function(req, res) {
 });
 ```
 
-On your client side you would request it as soon as your app start. So your
-angular code would be something like:
+On your client side you would request it as soon as your app start. So your angular code would be something like:
 
 ```js
 (function() {
@@ -128,16 +116,11 @@ gulp.task('config', function() {
 });
 ```
 
-Now the question is where does CI gets those config values which it injects into
-angular config. There are 2 main options:
+Now the question is where does CI gets those config values which it injects into angular config. There are 2 main options:
 
-1. Have a set of configuration files which are checked in into your repo and can
-   be accessed by CI during deployment. This brings the same problems as
-   solutions 1.
+1. Have a set of configuration files which are checked in into your repo and can be accessed by CI during deployment. This brings the same problems as solutions 1.
 
-2. Inject those values into environmental variables of your CI, which is
-   arguably a better solution. The new problem you have is managing env
-   variables both on your server and CI.
+2. Inject those values into environmental variables of your CI, which is arguably a better solution. The new problem you have is managing env variables both on your server and CI.
 
 **Advantage**
 
@@ -146,9 +129,7 @@ angular config. There are 2 main options:
 
 **Disadvantage**
 
-* You now have your env variables in 2 places CI and your deployment server.
-  Also it limits you in a way that now you always have to go via CI to do a
-  deployment.
+* You now have your env variables in 2 places CI and your deployment server. Also it limits you in a way that now you always have to go via CI to do a deployment.
 
 **Summary**
 
@@ -156,7 +137,7 @@ This approach only partially solves the problem and pushes some of it to CI.
 
 ### Option 4: Generate your angular configuration on the server dynamically
 
-You have probably heard of server side template rendering, it is a way of dynamically injecting data into your html markup, pretty old school stuff. So how about if we take similar approach and apply it for our Angular configuration service (which is just js file). So as *templating engine *I am going to use [\*gulp-ng-config](https://github.com/ajwhite/gulp-ng-config)\* which does pretty much what we want - it generates key value angular constant service from a JSON file, you can also override values from JSON file with env variables.
+You have probably heard of server side template rendering, it is a way of dynamically injecting data into your html markup, pretty old school stuff. So how about if we take similar approach and apply it for our Angular configuration service (which is just js file). So as *templating engine *I am going to use [\*gulp-ng-config](https://github.com/ajwhite/gulp-ng-config) which does pretty much what we want - it generates key value angular constant service from a JSON file, you can also override values from JSON file with env variables.
 
 So here is how the process would work when you deploy your code to a server:
 
@@ -184,8 +165,7 @@ I have created a sample angular/node project to illustrate how all bits fit toge
 
 It seems to be the cleanest approach at the moment.
 
-Also when you move all you client and server configurations to env variables you
-get access to this benefits:
+Also when you move all you client and server configurations to env variables you get access to this benefits:
 
 1. If a developer wants a separate environment to test his code, it should be as
    easy as cloning existing one and changing endpoints to other servers (if
@@ -201,6 +181,5 @@ get access to this benefits:
 
 ## Summary
 
-I hope this article will help to avoid a lot of pain in the deployment process
-and maybe even give you some dev superpowers!
+I hope this article will help to avoid a lot of pain in the deployment process and maybe even give you some dev superpowers!
 ![](https://cdn-images-1.medium.com/max/2000/1*SnsghO5h6Jqs0r96qewxBQ.gif)

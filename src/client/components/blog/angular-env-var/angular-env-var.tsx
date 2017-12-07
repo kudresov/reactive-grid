@@ -108,14 +108,14 @@ const AngularEnvVar: React.SFC = () => (
         Option 2: Get configuration values from the server via REST call
       </h1>
       <p className={styles.p}>
-        You create and endpoint on your server for example:
+        You create and endpoint on your server for example:{" "}
         <em>
           <a className={styles.a} href="https://www.mywebsite.com/config">
             https://www.mywebsite.com/config
-          </a>{" "}
-        </em>which returns you a configuration for your site and when your app
-        loads, first thing you do is make a GET reequest to
-        <em>/config</em>
+          </a>
+        </em>{" "}
+        which returns you a configuration for your site and when your app loads,
+        first thing you do is make a GET reequest to <em>/config</em>
       </p>
       <p className={styles.p}>
         This could work because your server has access to env variables and
@@ -257,9 +257,10 @@ const AngularEnvVar: React.SFC = () => (
           href="https://github.com/ajwhite/gulp-ng-config"
         >
           *gulp-ng-config
-        </a>* which does pretty much what we want - it generates key value
-        angular constant service from a JSON file, you can also override values
-        from JSON file with env variables.
+        </a>{" "}
+        which does pretty much what we want - it generates key value angular
+        constant service from a JSON file, you can also override values from
+        JSON file with env variables.
       </p>
       <p className={styles.p}>
         So here is how the process would work when you deploy your code to a
