@@ -55,3 +55,7 @@
 .code {
   font-family: monospace;
 }
+
+.itemContainer {
+  padding: 0 2rem;
+}

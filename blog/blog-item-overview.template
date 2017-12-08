@@ -5,7 +5,7 @@ const styles = require('../blog-item-overview.css');
 
 const {{componentName}}: SFC = () => (
   <Link className={styles.link} to="{{path}}">
-    <div>
+    <div className={styles.itemContainer}>
       <p className={styles.date}>{{date}}</p>
       <h1 className={styles.title}>{{title}}</h1>
       <h2 className={styles.summary}>{{summary}}</h2>
